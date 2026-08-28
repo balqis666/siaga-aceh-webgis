@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIAGA Aceh - Portal Kebencanaan Provinsi Aceh</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+        <span class="font-bold text-lg tracking-wider text-white">SIAGA ACEH</span>
+      </div>
+      <div class="flex items-center space-x-6 text-sm font-medium">
+        <a href="index.html" class="text-emerald-400">Home</a>
+        <a href="map.html" class="text-slate-300 hover:text-white transition">Peta WebGIS</a>
+        <a href="dashboard.html" class="text-slate-300 hover:text-white transition">Dashboard Statistik</a>
+        <a href="map.html" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg transition shadow-lg shadow-emerald-600/20">
+          Buka Peta Interaktif
+        <a href="admin.html" class="text-xs md:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-md border border-slate-700 transition">
+        <i class="fa-solid fa-lock mr-1"></i> Admin
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="max-w-7xl mx-auto px-6 py-16 text-center md:text-left grid md:grid-cols-2 gap-10 items-center">
+    <div>
+      <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full text-emerald-400 text-xs font-semibold mb-6">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <span>Sistem Geospasial Kebencanaan Terpadu Aceh</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-white mb-4">
+        Pemetaan Risiko & Mitigasi Bencana <span class="text-emerald-400">Provinsi Aceh</span>
+      </h1>
+      <p class="text-slate-400 text-base mb-8 leading-relaxed">
+        Platform WebGIS geospasial berbasis data riil 23 Kabupaten/Kota untuk monitoring kerawanan banjir, sesar aktif gempa bumi, dan kesiapsiagaan posko darurat.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+        <a href="map.html" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-lg font-medium shadow-lg transition">
+          <i class="fa-solid fa-map-location-dot mr-2"></i> Eksplorasi Peta WebGIS
+        </a>
+        <a href="dashboard.html" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-6 py-3 rounded-lg font-medium transition">
+          <i class="fa-solid fa-chart-pie mr-2"></i> Lihat Statistik Risiko
+        </a>
+      </div>
+    </div>
+    
+    <!-- Hero Visual Cards -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <i class="fa-solid fa-map-pin text-emerald-400 text-2xl mb-3"></i>
+        <h3 class="text-2xl font-bold text-white">23</h3>
+        <p class="text-xs text-slate-400 mt-1">Kabupaten/Kota Terpetakan</p>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <i class="fa-solid fa-volcano text-red-400 text-2xl mb-3"></i>
+        <h3 class="text-2xl font-bold text-white">2 Segmen</h3>
+        <p class="text-xs text-slate-400 mt-1">Sesar Aktif (Aceh & Seulimeum)</p>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <i class="fa-solid fa-water text-blue-400 text-2xl mb-3"></i>
+        <h3 class="text-2xl font-bold text-white">DAS Rawan</h3>
+        <p class="text-xs text-slate-400 mt-1">Krueng Aceh, Keureuto, Singkil</p>
+      </div>
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <i class="fa-solid fa-tower-broadcast text-amber-400 text-2xl mb-3"></i>
+        <h3 class="text-2xl font-bold text-white">24 Jam</h3>
+        <p class="text-xs text-slate-400 mt-1">Siaga Call Center BPBD</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900 py-6 text-center text-xs text-slate-500">
+    <p>© 2026 SIAGA Aceh - Sistem Informasi Kebencanaan & Geoportal Provinsi Aceh.</p>
+  </footer>
+
+</body>
+</html>

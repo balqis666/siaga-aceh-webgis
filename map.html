@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIAGA Aceh - WebGIS Kebencanaan</title>
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    #map { height: calc(100vh - 64px); width: 100%; z-index: 10; }
+  </style>
+</head>
+<body class="bg-slate-950 flex flex-col h-screen overflow-hidden font-sans">
+
+  <!-- Navbar -->
+  <nav class="h-16 bg-slate-900 text-white flex items-center justify-between px-6 z-20 shadow-md border-b border-slate-800">
+    <div class="flex items-center space-x-3">
+      <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+      <div>
+        <h1 class="font-bold text-base md:text-lg leading-tight text-white">SIAGA ACEH</h1>
+        <p class="text-[10px] md:text-xs text-slate-400">WebGIS Geoportal & Pemetaan Risiko Bencana</p>
+      </div>
+    </div>
+
+    <!-- Quick Search & Navigation -->
+    <div class="flex items-center space-x-3">
+      <div class="relative hidden sm:block">
+        <input 
+          id="search-input" 
+          type="text" 
+          placeholder="Cari Kab/Kota di Aceh..." 
+          class="bg-slate-800 text-xs md:text-sm px-3 py-1.5 rounded-lg text-slate-200 border border-slate-700 focus:outline-none focus:border-emerald-500 w-48 md:w-60"
+        />
+        <button onclick="cariWilayah()" class="absolute right-2 top-2 text-slate-400 hover:text-emerald-400">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <a href="index.html" class="text-xs md:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-md border border-slate-700 transition">
+        <i class="fa-solid fa-house mr-1"></i> Home
+      </a>
+      <a href="katalog.html" class="text-xs md:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-md border border-slate-700 transition">
+        <i class="fa-solid fa-database mr-1"></i> Katalog
+      </a>
+      <a href="dashboard.html" class="text-xs md:text-sm bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-md font-medium transition shadow-lg shadow-emerald-600/20">
+        <i class="fa-solid fa-chart-pie mr-1"></i> Dashboard
+      <a href="admin.html" class="text-xs md:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-md border border-slate-700 transition">
+        <i class="fa-solid fa-lock mr-1"></i> Admin
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Map Container -->
+  <div class="relative flex-1">
+    <div id="map"></div>
+
+    <!-- Floating Filter Box (Kiri Bawah) -->
+    <div class="absolute bottom-6 left-6 bg-slate-900/90 backdrop-blur-md text-white p-3.5 rounded-xl shadow-xl border border-slate-800 z-30 max-w-xs text-xs space-y-2">
+      <div class="font-bold text-emerald-400 flex items-center justify-between border-b border-slate-800 pb-1.5">
+        <span><i class="fa-solid fa-filter mr-1.5"></i> Filter Tingkat Risiko</span>
+      </div>
+      <div class="space-y-1">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-sangat-tinggi" checked onchange="filterRisiko()" class="rounded accent-red-500" />
+          <span class="text-slate-200">Sangat Tinggi (Merah)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-tinggi" checked onchange="filterRisiko()" class="rounded accent-orange-500" />
+          <span class="text-slate-200">Tinggi (Oranye)</span>
+        </label>
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="checkbox" id="filter-sedang" checked onchange="filterRisiko()" class="rounded accent-amber-500" />
+          <span class="text-slate-200">Sedang (Kuning)</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Floating Legend Box (Kanan Bawah) -->
+    <div class="absolute bottom-6 right-6 bg-slate-900/90 backdrop-blur-md text-white p-3.5 rounded-xl shadow-xl border border-slate-800 z-30 max-w-xs text-xs space-y-2">
+      <div class="font-bold text-slate-200 border-b border-slate-800 pb-1.5 flex items-center">
+        <i class="fa-solid fa-layer-group text-emerald-400 mr-1.5"></i> Legenda Peta
+      </div>
+      <div class="space-y-1.5 text-slate-300">
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+          <span>Risiko Sangat Tinggi</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span>
+          <span>Risiko Tinggi</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+          <span>Risiko Sedang</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="w-4 h-0.5 bg-red-600 border-t-2 border-dashed border-red-500 inline-block"></span>
+          <span>Patahan Sesar Aktif</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

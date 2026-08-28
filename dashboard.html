@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIAGA Aceh - Dashboard Statistik Kebencanaan</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+        <span class="font-bold text-lg tracking-wider text-white">SIAGA ACEH</span>
+      </div>
+      <div class="flex items-center space-x-4 text-sm font-medium">
+        <a href="index.html" class="text-slate-300 hover:text-white">Home</a>
+        <a href="map.html" class="text-slate-300 hover:text-white">Peta WebGIS</a>
+        <a href="dashboard.html" class="text-emerald-400">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Container Dashboard -->
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full">
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-white">Dashboard Analitik Risiko Bencana Aceh</h1>
+      <p class="text-slate-400 text-sm">Visualisasi agregat sebaran kerawanan bencana di 23 Kabupaten/Kota.</p>
+    </div>
+
+    <!-- Grafik Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Chart 1: Donut Tingkat Risiko -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center">
+          <i class="fa-solid fa-chart-pie text-emerald-400 mr-2"></i> Proporsi Tingkat Kerawanan Wilayah
+        </h3>
+        <div class="h-64 flex justify-center">
+          <canvas id="riskDonutChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Bar Chart Dominasi Ancaman -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+        <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center">
+          <i class="fa-solid fa-chart-column text-blue-400 mr-2"></i> Jenis Ancaman Dominan
+        </h3>
+        <div class="h-64 flex justify-center">
+          <canvas id="threatBarChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Inisialisasi Grafik Chart.js
+    const ctxDonut = document.getElementById('riskDonutChart').getContext('2d');
+    new Chart(ctxDonut, {
+      type: 'doughnut',
+      data: {
+        labels: ['Sangat Tinggi', 'Tinggi', 'Sedang'],
+        datasets: [{
+          data: [7, 11, 5],
+          backgroundColor: ['#ef4444', '#f97316', '#eab308'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#94a3b8' } }
+        }
+      }
+    });
+
+    const ctxBar = document.getElementById('threatBarChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Banjir DAS', 'Gempa Sesar', 'Tanah Longsor', 'Tsunami/Rob', 'Karhutla'],
+        datasets: [{
+          label: 'Jumlah Wilayah Terdampak',
+          data: [15, 10, 8, 7, 3],
+          backgroundColor: '#3b82f6',
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+          x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

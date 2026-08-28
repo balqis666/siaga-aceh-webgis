@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIAGA Aceh - Panel Administrasi Posko</title>
+  
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+        <div>
+          <h1 class="font-bold text-base text-white leading-tight">SIAGA ACEH</h1>
+          <p class="text-[10px] text-emerald-400 font-medium">Panel Administrasi Kebencanaan</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4 text-sm font-medium">
+        <a href="index.html" class="text-slate-300 hover:text-white">Home</a>
+        <a href="map.html" class="text-slate-300 hover:text-white">Peta WebGIS</a>
+        <a href="katalog.html" class="text-slate-300 hover:text-white">Katalog</a>
+        <a href="dashboard.html" class="text-slate-300 hover:text-white">Dashboard</a>
+        <button onclick="logoutAdmin()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+          <i class="fa-solid fa-right-from-bracket mr-1"></i> Keluar
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Container Utama -->
+  <main class="max-w-7xl mx-auto px-6 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Form Input Posko Baru -->
+    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl lg:col-span-1 h-fit">
+      <div class="flex items-center space-x-2 border-b border-slate-800 pb-3 mb-4">
+        <i class="fa-solid fa-square-plus text-emerald-400 text-lg"></i>
+        <h2 class="text-base font-bold text-white">Tambah Titik Posko Siaga</h2>
+      </div>
+
+      <form id="form-tambah-posko" onsubmit="tambahPosko(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">Nama Posko / Shelter</label>
+          <input type="text" id="posko-nama" required placeholder="Contoh: Posko Siaga BPBD Jantho" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">Lokasi Wilayah / Kab-Kota</label>
+          <input type="text" id="posko-lokasi" required placeholder="Contoh: Aceh Besar" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 mb-1 font-medium">Latitude</label>
+            <input type="number" step="any" id="posko-lat" required placeholder="5.3833" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+          </div>
+          <div>
+            <label class="block text-slate-300 mb-1 font-medium">Longitude</label>
+            <input type="number" step="any" id="posko-lng" required placeholder="95.5333" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">Kapasitas Pengungsi</label>
+          <input type="text" id="posko-kapasitas" required placeholder="Contoh: 400 Jiwa" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">Nomor Kontak Darurat</label>
+          <input type="text" id="posko-kontak" required placeholder="Contoh: 0651-92113" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500" />
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-medium">Status Operasional</label>
+          <select id="posko-status" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+            <option value="Siaga 24 Jam">Siaga 24 Jam</option>
+            <option value="Aktif Tanggap Darurat">Aktif Tanggap Darurat</option>
+            <option value="Standby Cadangan">Standby Cadangan</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg transition shadow-lg shadow-emerald-600/20 text-xs mt-2">
+          <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan Data Posko
+        </button>
+      </form>
+    </div>
+
+    <!-- Tabel Data Posko Terdaftar -->
+    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl lg:col-span-2 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-list-check text-blue-400 text-lg"></i>
+            <h2 class="text-base font-bold text-white">Daftar Titik Posko Bencana Aktif</h2>
+          </div>
+          <span id="total-posko-badge" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-full text-xs font-semibold">3 Posko Terdata</span>
+        </div>
+
+        <!-- Tabel Responsif -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="bg-slate-800/60 text-slate-400 font-semibold border-b border-slate-700">
+              <tr>
+                <th class="py-3 px-3">Nama Posko</th>
+                <th class="py-3 px-3">Lokasi</th>
+                <th class="py-3 px-3">Kapasitas</th>
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-posko-body" class="divide-y divide-slate-800">
+              <!-- Data akan dimuat via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <p class="text-[11px] text-slate-500 mt-4">
+        * Data posko yang ditambahkan di modul ini tersimpan pada session storage browser lokal penguji.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Script Manajemen Admin -->
+  <script>
+    // Data Posko Default Awal
+    let daftarPosko = JSON.parse(localStorage.getItem('siaga_posko_data')) || [
+      { id: 1, nama: "Posko Induk BPBA Provinsi Aceh", lokasi: "Banda Aceh", lat: 5.5483, lng: 95.3238, kapasitas: "500 Jiwa", kontak: "0651-34612", status: "Siaga 24 Jam" },
+      { id: 2, nama: "Posko BPBD Aceh Besar (Jantho)", lokasi: "Kota Jantho", lat: 5.2833, lng: 95.5833, kapasitas: "300 Jiwa", kontak: "0651-92113", status: "Siaga 24 Jam" },
+      { id: 3, nama: "Posko Tanggap Darurat Aceh Utara", lokasi: "Lhoksukon", lat: 5.0500, lng: 97.3167, kapasitas: "600 Jiwa", kontak: "0645-41221", status: "Siaga 24 Jam" }
+    ];
+
+    function renderTabel() {
+      const tbody = document.getElementById('tabel-posko-body');
+      const badge = document.getElementById('total-posko-badge');
+      tbody.innerHTML = '';
+      badge.innerText = `${daftarPosko.length} Posko Terdata`;
+
+      daftarPosko.forEach((posko, index) => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-slate-800/40 transition";
+        row.innerHTML = `
+          <td class="py-3 px-3 font-medium text-white">${posko.nama}</td>
+          <td class="py-3 px-3">${posko.lokasi}</td>
+          <td class="py-3 px-3">${posko.kapasitas}</td>
+          <td class="py-3 px-3">
+            <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-semibold">
+              ${posko.status}
+            </span>
+          </td>
+          <td class="py-3 px-3 text-center">
+            <button onclick="hapusPosko(${index})" class="text-red-400 hover:text-red-300 bg-red-500/10 p-1.5 rounded-lg border border-red-500/20 transition">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function tambahPosko(e) {
+      e.preventDefault();
+      const nama = document.getElementById('posko-nama').value;
+      const lokasi = document.getElementById('posko-lokasi').value;
+      const lat = parseFloat(document.getElementById('posko-lat').value);
+      const lng = parseFloat(document.getElementById('posko-lng').value);
+      const kapasitas = document.getElementById('posko-kapasitas').value;
+      const kontak = document.getElementById('posko-kontak').value;
+      const status = document.getElementById('posko-status').value;
+
+      daftarPosko.push({ id: Date.now(), nama, lokasi, lat, lng, kapasitas, kontak, status });
+      localStorage.setItem('siaga_posko_data', JSON.stringify(daftarPosko));
+      
+      renderTabel();
+      document.getElementById('form-tambah-posko').reset();
+      alert('Data titik posko baru berhasil disimpan!');
+    }
+
+    function hapusPosko(index) {
+      if (confirm('Apakah Anda yakin ingin menghapus data posko ini?')) {
+        daftarPosko.splice(index, 1);
+        localStorage.setItem('siaga_posko_data', JSON.stringify(daftarPosko));
+        renderTabel();
+      }
+    }
+
+    function logoutAdmin() {
+      alert('Anda telah keluar dari sesi administrator.');
+      window.location.href = 'index.html';
+    }
+
+    // Inisialisasi awal render tabel
+    renderTabel();
+  </script>
+</body>
+</html>
