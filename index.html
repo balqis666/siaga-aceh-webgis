@@ -19,86 +19,244 @@
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Animasi Matahari */
+    @keyframes sunGlow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.7)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 45px rgba(245, 158, 11, 0.9)); }
+    }
+    .animate-sun { animation: sunGlow 5s ease-in-out infinite; }
+
+    /* Animasi Awan Mengapung Horizontal */
+    @keyframes moveCloud1 {
+      0% { transform: translateX(-120px); }
+      50% { transform: translateX(100px); }
+      100% { transform: translateX(-120px); }
+    }
+    @keyframes moveCloud2 {
+      0% { transform: translateX(80px); }
+      50% { transform: translateX(-80px); }
+      100% { transform: translateX(80px); }
+    }
+    .animate-cloud-slow { animation: moveCloud1 18s ease-in-out infinite; }
+    .animate-cloud-fast { animation: moveCloud2 12s ease-in-out infinite; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
 
-  <!-- TOP BAR -->
-  <header class="bg-emerald-950/90 text-emerald-300 text-xs py-2 px-4 md:px-8 border-b border-emerald-800/40 sticky top-0 z-50 backdrop-blur-md">
+  <!-- ================= TOP BAR (HIJAU EMERALD) ================= -->
+  <header class="bg-emerald-700 text-emerald-50 text-xs py-2 px-4 md:px-8 sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
       <div class="flex items-center space-x-3">
-        <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-emerald-500/30">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> SIAGA ACEH ONLINE
+        <span class="inline-flex items-center gap-1.5 bg-emerald-800/60 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-emerald-600/50">
+          <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span> SIAGA ACEH ONLINE
         </span>
-        <span class="hidden md:inline text-slate-500">|</span>
-        <span class="hidden md:inline text-slate-300"><i class="fa-solid fa-clock mr-1 text-amber-400"></i> Pantauan Real-Time 23 Kabupaten / Kota</span>
+        <span class="hidden md:inline text-emerald-300">|</span>
+        <span class="hidden md:inline text-emerald-100"><i class="fa-solid fa-clock mr-1 text-amber-300"></i> Pantauan Real-Time 23 Kabupaten / Kota</span>
       </div>
       <div class="flex items-center space-x-4">
-        <a href="tel:065134783" class="hover:text-white transition flex items-center gap-1.5 font-bold text-amber-400">
+        <a href="tel:065134783" class="hover:text-white transition flex items-center gap-1.5 font-bold text-amber-300">
           <i class="fa-solid fa-phone-volume animate-bounce"></i> Call Center Pusdalops BPBA: (0651) 34783
         </a>
       </div>
     </div>
   </header>
 
-  <!-- NAVBAR -->
-  <nav class="bg-slate-900/95 border-b border-slate-800 shadow-xl sticky top-8 z-40">
+  <!-- ================= MAIN NAVIGATION (PUTIH BERSIH) ================= -->
+  <nav class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-8 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
-        <div class="w-12 h-12 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-600/30 text-white text-2xl">
+        <div class="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-600/20 text-white text-2xl">
           <i class="fa-solid fa-shield-halved"></i>
         </div>
         <div>
-          <h1 class="font-extrabold text-xl tracking-tight text-white flex items-center gap-2">
+          <h1 class="font-extrabold text-xl tracking-tight text-slate-900 flex items-center gap-2">
             SIAGA ACEH
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">PORTAL</span>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-bold">PORTAL</span>
           </h1>
-          <p class="text-xs text-slate-400">Pemerintah Aceh & Badan Penanggulangan Bencana Aceh</p>
+          <p class="text-xs text-slate-500 font-medium">Pemerintah Aceh & Badan Penanggulangan Bencana Aceh</p>
         </div>
       </div>
 
-      <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
-        <a href="index.html" class="text-emerald-400 border-b-2 border-emerald-400 pb-1">Beranda</a>
-        <a href="map.html" class="text-slate-300 hover:text-white transition">Peta WebGIS</a>
-        <a href="dashboard.html" class="text-slate-300 hover:text-white transition">Dashboard Statistik</a>
-        <a href="katalog.html" class="text-slate-300 hover:text-white transition">Katalog Data</a>
-        <a href="admin.html" class="text-slate-300 hover:text-white transition flex items-center gap-1">
+      <div class="hidden lg:flex items-center space-x-7 text-xs md:text-sm font-bold tracking-wide uppercase text-slate-700">
+        <a href="index.html" class="text-emerald-600 border-b-2 border-emerald-600 pb-1">Beranda</a>
+        <a href="map.html" class="hover:text-emerald-600 transition">Peta WebGIS</a>
+        <a href="dashboard.html" class="hover:text-emerald-600 transition">Dashboard Statistik</a>
+        <a href="katalog.html" class="hover:text-emerald-600 transition">Katalog Data</a>
+        <a href="admin.html" class="hover:text-emerald-600 transition flex items-center gap-1">
           <i class="fa-solid fa-lock text-xs text-slate-400"></i> Admin
         </a>
-        <a href="map.html" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white px-5 py-2.5 rounded-xl transition shadow-lg shadow-emerald-600/30 font-bold flex items-center gap-2">
+        <a href="map.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl transition shadow-md shadow-emerald-600/20 font-bold flex items-center gap-2 normal-case">
           <i class="fa-solid fa-map-location-dot"></i> Buka WebGIS
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- PERINGATAN DINI CUACA BANNER -->
-  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-6 w-full">
-    <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-800/60 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+  <!-- ================= HERO BANNER: LANGIT BIRU CERAH, AWAN, MATAHARI & MESJID RAYA BAITURRAHMAN ================= -->
+  <section class="relative bg-gradient-to-b from-sky-400 via-sky-200 to-emerald-50 overflow-hidden pt-10 pb-28 border-b border-emerald-100">
+    
+    <!-- MATAHARI BERGERAK BERSINAR -->
+    <div class="absolute top-6 right-12 md:right-28 w-24 h-24 md:w-32 md:h-32 bg-gradient-to-tr from-amber-400 to-yellow-200 rounded-full animate-sun z-0 opacity-95"></div>
+
+    <!-- AWAN BERGERAK MENGAPUNG (LAYER ATAS & TENGAH) -->
+    <div class="absolute top-6 left-8 text-white/90 text-6xl md:text-7xl animate-cloud-slow z-0 drop-shadow-sm">
+      <i class="fa-solid fa-cloud"></i>
+    </div>
+    <div class="absolute top-16 right-1/3 text-white/80 text-8xl md:text-9xl animate-cloud-fast z-0 drop-shadow-sm">
+      <i class="fa-solid fa-cloud"></i>
+    </div>
+    <div class="absolute top-32 left-1/4 text-white/70 text-5xl md:text-6xl animate-cloud-slow z-0">
+      <i class="fa-solid fa-cloud"></i>
+    </div>
+
+    <!-- BURUNG MELAYANG -->
+    <div class="absolute top-12 left-1/2 text-sky-800/40 text-lg">
+      <i class="fa-solid fa-dove"></i>
+    </div>
+    <div class="absolute top-20 left-2/3 text-sky-800/30 text-xs">
+      <i class="fa-solid fa-dove"></i>
+    </div>
+
+    <!-- KONTEN HERO (TEKS & KARTU STATISTIK CEPAT) -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-7 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-md border border-emerald-200 text-emerald-800 px-4 py-1.5 rounded-full text-xs font-bold mb-4 shadow-sm">
+          <i class="fa-solid fa-landmark-dome text-emerald-600"></i> Pemerintah Aceh & Badan Penanggulangan Bencana Aceh
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight tracking-tight mb-4">
+          Siaga Tanggap Bencana <br/>
+          <span class="text-emerald-700">Provinsi Aceh</span>
+        </h1>
+        <p class="text-slate-700 text-sm md:text-base mb-6 max-w-2xl leading-relaxed font-medium">
+          Pusat integrasi pemantauan spasial kerentanan 23 Kabupaten/Kota, mitigasi sesar gempa, kesiapsiagaan DAS banjir, dan Gampong Tangguh Bencana (DESTANA).
+        </p>
+
+        <div class="flex flex-wrap gap-3.5 justify-center lg:justify-start">
+          <a href="map.html" class="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-xl font-bold transition shadow-lg shadow-emerald-600/30 flex items-center gap-2">
+            <i class="fa-solid fa-map-location-dot"></i> Eksplorasi Peta WebGIS
+          </a>
+          <a href="dashboard.html" class="bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 px-6 py-3.5 rounded-xl font-bold transition shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-emerald-600"></i> Statistik Risiko Daerah
+          </a>
+        </div>
+      </div>
+
+      <!-- KARTU INDIKATOR CEPAT ACEH -->
+      <div class="lg:col-span-5 relative">
+        <div class="bg-white/90 backdrop-blur-md border border-emerald-100 rounded-3xl p-6 shadow-xl">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <div class="flex items-center space-x-2">
+              <i class="fa-solid fa-mosque text-emerald-600 text-lg"></i>
+              <span class="font-bold text-sm text-slate-800">Wilayah Bumi Serambi Mekkah</span>
+            </div>
+            <span class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">23 KAB/KOTA</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-center text-xs">
+            <div class="bg-emerald-50/80 p-3 rounded-2xl border border-emerald-100">
+              <i class="fa-solid fa-map-location text-emerald-600 text-lg mb-1"></i>
+              <p class="text-slate-500 text-[10px]">Luas Wilayah</p>
+              <p class="font-extrabold text-slate-900 text-sm">58.375 km²</p>
+            </div>
+            <div class="bg-emerald-50/80 p-3 rounded-2xl border border-emerald-100">
+              <i class="fa-solid fa-house-chimney-crack text-rose-500 text-lg mb-1"></i>
+              <p class="text-slate-500 text-[10px]">Sesar Gempa Aktif</p>
+              <p class="font-extrabold text-slate-900 text-sm">Aceh & Seulimeum</p>
+            </div>
+            <div class="bg-emerald-50/80 p-3 rounded-2xl border border-emerald-100">
+              <i class="fa-solid fa-shield-heart text-blue-600 text-lg mb-1"></i>
+              <p class="text-slate-500 text-[10px]">Gampong Destana</p>
+              <p class="font-extrabold text-slate-900 text-sm">679 Gampong</p>
+            </div>
+            <div class="bg-emerald-50/80 p-3 rounded-2xl border border-emerald-100">
+              <i class="fa-solid fa-headset text-amber-500 text-lg mb-1"></i>
+              <p class="text-slate-500 text-[10px]">Call Center BPBA</p>
+              <p class="font-extrabold text-emerald-700 text-sm">24 Jam Siaga</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= SILUET IKONIK MESJID RAYA BAITURRAHMAN & BUKIT BARISAN ACEH DI DASAR HERO ================= -->
+    <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-none z-0 pointer-events-none opacity-95">
+      <svg viewBox="0 0 1200 160" preserveAspectRatio="none" class="relative block w-full h-24 md:h-32 text-emerald-700 fill-current">
+        
+        <!-- Siluet Perbukitan Seulawah & Geurutee di Belakang -->
+        <path d="M0,70 Q 200,20 400,65 T 800,45 T 1200,60 L 1200,160 L 0,160 Z" fill="#047857" opacity="0.4" />
+        
+        <!-- Siluet Bangunan Utama Mesjid Raya Baiturrahman (Pilar, Kubah Hitam Khas, Menara Utama, & Payung Elektrik) -->
+        <!-- Menara Utama Kiri (Minaret) -->
+        <rect x="260" y="25" width="14" height="135" fill="#065f46" />
+        <polygon points="260,25 267,8 274,25" fill="#064e3b" />
+        <circle cx="267" cy="8" r="3" fill="#fbbf24" />
+
+        <!-- Payung Elektrik Kiri -->
+        <path d="M 310,65 Q 330,45 350,65 L 332,160 L 328,160 Z" fill="#047857" opacity="0.85" />
+
+        <!-- Sayap Mesjid Kiri & Kubah Kecil -->
+        <rect x="360" y="80" width="70" height="80" fill="#065f46" />
+        <path d="M 375,80 Q 395,50 415,80 Z" fill="#022c22" /> <!-- Kubah Kiri -->
+
+        <!-- Bangunan Tengah & Kubah Utama Besar Baiturrahman -->
+        <rect x="430" y="70" width="140" height="90" fill="#065f46" />
+        <path d="M 460,70 Q 500,20 540,70 Z" fill="#022c22" /> <!-- Kubah Utama Hitam -->
+        <circle cx="500" cy="20" r="4" fill="#fbbf24" /> <!-- Bulan Bintang Emas Puncak -->
+
+        <!-- Lengkungan Pintu Pilar Khas Baiturrahman -->
+        <path d="M 480,160 L 480,115 Q 500,95 520,115 L 520,160 Z" fill="#ecfdf5" opacity="0.3" />
+
+        <!-- Sayap Mesjid Kanan & Kubah Kecil -->
+        <rect x="570" y="80" width="70" height="80" fill="#065f46" />
+        <path d="M 585,80 Q 605,50 625,80 Z" fill="#022c22" /> <!-- Kubah Kanan -->
+
+        <!-- Payung Elektrik Kanan -->
+        <path d="M 650,65 Q 670,45 690,65 L 672,160 L 668,160 Z" fill="#047857" opacity="0.85" />
+
+        <!-- Menara Kanan (Minaret) -->
+        <rect x="710" y="25" width="14" height="135" fill="#065f46" />
+        <polygon points="710,25 717,8 724,25" fill="#064e3b" />
+        <circle cx="717" cy="8" r="3" fill="#fbbf24" />
+
+        <!-- Landasan Dasar Hijau Terang -->
+        <rect x="0" y="145" width="1200" height="20" fill="#059669" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= 1. PERINGATAN DINI CUACA ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-8 w-full">
+    <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-white border border-emerald-200 rounded-2xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div class="flex items-start space-x-4">
-        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl shrink-0">
+        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center text-2xl shrink-0">
           <i class="fa-solid fa-circle-check"></i>
         </div>
         <div>
-          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Peringatan Dini Cuaca Aceh</span>
-          <h3 class="text-base font-bold text-white mt-0.5">Tidak Ada Peringatan Dini Cuaca Ekstrem untuk Wilayah Aceh</h3>
-          <p class="text-xs text-slate-400 mt-1">Saat ini tidak ada peringatan cuaca ekstrem untuk wilayah Provinsi Aceh.</p>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Peringatan Dini Cuaca Aceh</span>
+          <h3 class="text-base font-bold text-slate-900 mt-0.5">Tidak Ada Peringatan Dini Cuaca Ekstrem untuk Wilayah Aceh</h3>
+          <p class="text-xs text-slate-600 mt-1">Saat ini kondisi atmosfer di seluruh 23 Kabupaten/Kota terpantau aman dan terkendali.</p>
         </div>
       </div>
       <div class="text-right shrink-0">
-        <span class="text-[11px] bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 font-medium">
-          <i class="fa-solid fa-satellite mr-1 text-emerald-400"></i> Sumber: BMKG Stasiun Meteorologi Aceh
+        <span class="text-[11px] bg-white text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 font-medium shadow-sm">
+          <i class="fa-solid fa-satellite mr-1 text-emerald-600"></i> Sumber: BMKG Stasiun Meteorologi Aceh
         </span>
       </div>
     </div>
   </section>
 
-  <!-- DROPDOWN FILTER (KAB/KOTA & JENIS BENCANA) -->
+  <!-- ================= 2. FILTER WILAYAH & JENIS BENCANA ================= -->
   <section class="max-w-7xl mx-auto px-4 md:px-8 mt-4 w-full">
-    <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <select id="select-kabkota" onchange="updateDataBencana()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-emerald-500">
-          <option value="Semua">Semua Kab/Kota</option>
+        <label class="block text-xs font-bold text-slate-600 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-map-pin text-emerald-600"></i> Filter Wilayah (Kabupaten/Kota Aceh)
+        </label>
+        <select id="select-kabkota" onchange="updateDataBencana()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs md:text-sm text-slate-800 focus:outline-none focus:border-emerald-500 font-medium">
+          <option value="Semua">Semua Kab/Kota di Provinsi Aceh</option>
           <option value="Banda Aceh">Kota Banda Aceh</option>
           <option value="Sabang">Kota Sabang</option>
           <option value="Lhokseumawe">Kota Lhokseumawe</option>
@@ -125,7 +283,10 @@
         </select>
       </div>
       <div>
-        <select id="select-bencana" onchange="updateDataBencana()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-emerald-500">
+        <label class="block text-xs font-bold text-slate-600 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Filter Jenis Bencana
+        </label>
+        <select id="select-bencana" onchange="updateDataBencana()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-xs md:text-sm text-slate-800 focus:outline-none focus:border-emerald-500 font-medium">
           <option value="Semua">Semua Jenis Bencana</option>
           <option value="Banjir">Banjir</option>
           <option value="Banjir Bandang">Banjir Bandang</option>
@@ -146,143 +307,127 @@
     </div>
   </section>
 
-  <!-- ================= SECTION UTAMA: 3 KOLOM PERSIS SEPERTI SIAGA NTB ================= -->
+  <!-- ================= 3. STATISTIK 3 KOLOM PERSIS SIAGA NTB ================= -->
   <section class="max-w-7xl mx-auto px-4 md:px-8 mt-6 w-full">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       
-      <!-- KOLOM 1 (KIRI): LIST VERTIKAL JENIS BENCANA & ICON (LEBAR: 3 KOLOM) -->
-      <div class="lg:col-span-3 bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-xl space-y-2.5 text-xs">
-        <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-          <span class="font-extrabold text-sm text-white">Total Kejadian</span>
-          <span id="label-total-kejadian" class="font-black text-emerald-400 text-base">559</span>
+      <!-- KOLOM 1: LIST VERTICAL JENIS BENCANA -->
+      <div class="lg:col-span-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2.5 text-xs">
+        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+          <span class="font-extrabold text-sm text-slate-800">Total Kejadian</span>
+          <span id="label-total-kejadian" class="font-black text-emerald-600 text-base">559</span>
         </div>
 
-        <div class="space-y-2 max-h-[580px] overflow-y-auto pr-1">
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+        <div class="space-y-1.5 max-h-[560px] overflow-y-auto pr-1">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-cloud-bolt text-amber-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Cuaca Ekstrem</span>
+              <i class="fa-solid fa-cloud-bolt text-amber-500 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Cuaca Ekstrem</span>
             </div>
-            <span class="font-bold text-white">78</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">78</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-sun text-yellow-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Kekeringan</span>
+              <i class="fa-solid fa-sun text-yellow-500 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Kekeringan</span>
             </div>
-            <span class="font-bold text-white">35</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">35</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-mountain text-amber-600 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Tanah Longsor</span>
+              <i class="fa-solid fa-mountain text-amber-700 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Tanah Longsor</span>
             </div>
-            <span class="font-bold text-white">21</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">21</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
               <i class="fa-solid fa-fire text-orange-500 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Kebakaran Hutan & Lahan</span>
+              <span class="text-slate-700 font-semibold">Kebakaran Hutan & Lahan</span>
             </div>
-            <span class="font-bold text-white">19</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">19</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-water text-cyan-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Gelombang Pasang & Abrasi</span>
+              <i class="fa-solid fa-water text-cyan-600 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Gelombang Pasang & Abrasi</span>
             </div>
-            <span class="font-bold text-white">5</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">5</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-house-flood-water text-blue-500 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Banjir Bandang</span>
+              <i class="fa-solid fa-house-flood-water text-blue-600 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Banjir Bandang</span>
             </div>
-            <span class="font-bold text-white">2</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">2</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-virus text-red-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Epidemi & Wabah</span>
+              <i class="fa-solid fa-virus text-rose-500 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Epidemi & Wabah</span>
             </div>
-            <span class="font-bold text-white">1</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">1</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-users-slash text-purple-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Konflik Sosial</span>
+              <i class="fa-solid fa-users-slash text-purple-600 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Konflik Sosial</span>
             </div>
-            <span class="font-bold text-white">1</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">1</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-volcano text-red-500 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Erupsi Gunung Api</span>
+              <i class="fa-solid fa-volcano text-red-600 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Erupsi Gunung Api</span>
             </div>
-            <span class="font-bold text-white">0</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">0</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-house-crack text-rose-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Gempa Bumi</span>
+              <i class="fa-solid fa-house-crack text-rose-600 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Gempa Bumi</span>
             </div>
-            <span class="font-bold text-white">0</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">0</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Gagal Teknologi</span>
+              <i class="fa-solid fa-building-circle-exclamation text-rose-500 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Kebakaran Pemukiman</span>
             </div>
-            <span class="font-bold text-white">0</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">294</span>
           </div>
 
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 transition border border-slate-100">
             <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-water text-teal-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Tsunami</span>
+              <i class="fa-solid fa-cloud-showers-heavy text-blue-500 text-base w-5 text-center"></i>
+              <span class="text-slate-700 font-semibold">Banjir</span>
             </div>
-            <span class="font-bold text-white">0</span>
-          </div>
-
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
-            <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-building-circle-exclamation text-red-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Kebakaran Pemukiman</span>
-            </div>
-            <span class="font-bold text-white">294</span>
-          </div>
-
-          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-800/60 hover:bg-slate-800 transition">
-            <div class="flex items-center space-x-2.5">
-              <i class="fa-solid fa-cloud-showers-heavy text-blue-400 text-base w-5 text-center"></i>
-              <span class="text-slate-300 font-medium">Banjir</span>
-            </div>
-            <span class="font-bold text-white">103</span>
+            <span class="font-bold text-slate-900 bg-white px-2 py-0.5 rounded shadow-sm border border-slate-200">103</span>
           </div>
         </div>
       </div>
 
-      <!-- KOLOM 2 (TENGAH): GRAFIK STACKED BAR KAB/KOTA & TABEL KORBAN + KERUSAKAN (LEBAR: 5 KOLOM) -->
+      <!-- KOLOM 2: GRAFIK KAB/KOTA & TABEL KORBAN + KERUSAKAN -->
       <div class="lg:col-span-5 space-y-5">
         
-        <!-- Grafik Stacked Bar Wilayah Aceh -->
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
+        <!-- Grafik Stacked Bar -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div class="flex justify-between items-center mb-3">
-            <h4 class="font-bold text-xs text-slate-300">Grafik Bencana per Kab/Kota Aceh</h4>
-            <div class="flex items-center space-x-2 text-[10px]">
+            <h4 class="font-bold text-xs text-slate-800">Grafik Bencana per Kab/Kota Aceh</h4>
+            <div class="flex items-center space-x-2 text-[10px] text-slate-600">
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-amber-500"></span> Longsor</span>
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-blue-500"></span> Kekeringan</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-red-500"></span> Karhutla</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-rose-500"></span> Karhutla</span>
             </div>
           </div>
           <div class="h-44">
@@ -290,13 +435,13 @@
           </div>
         </div>
 
-        <!-- Tabel Dampak Korban Jiwa (Format Persis) -->
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
-          <h4 class="font-bold text-center text-sm text-white mb-3">Korban</h4>
+        <!-- Tabel Dampak Korban -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <h4 class="font-bold text-center text-sm text-slate-900 mb-3">Korban</h4>
           <div class="overflow-x-auto">
             <table class="w-full text-center text-xs">
               <thead>
-                <tr class="text-slate-400 border-b border-slate-800 font-semibold">
+                <tr class="text-slate-500 border-b border-slate-200 font-semibold">
                   <th class="pb-2">Meninggal</th>
                   <th class="pb-2">Hilang</th>
                   <th class="pb-2">Luka Berat</th>
@@ -306,27 +451,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-base font-black text-white">
-                  <td class="pt-3 text-red-400">8</td>
-                  <td class="pt-3 text-amber-400">3</td>
-                  <td class="pt-3 text-orange-400">6</td>
-                  <td class="pt-3 text-yellow-400">9</td>
-                  <td class="pt-3 text-blue-400">1.074</td>
-                  <td class="pt-3 text-emerald-400">120.545</td>
+                <tr class="text-base font-black text-slate-900">
+                  <td class="pt-3 text-red-600">8</td>
+                  <td class="pt-3 text-amber-600">3</td>
+                  <td class="pt-3 text-orange-600">6</td>
+                  <td class="pt-3 text-yellow-600">9</td>
+                  <td class="pt-3 text-blue-600">1.074</td>
+                  <td class="pt-3 text-emerald-600">120.545</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p class="text-[10px] text-slate-500 text-left mt-3">Update terakhir: 31/08/2026, 10.06 WIB</p>
+          <p class="text-[10px] text-slate-400 text-left mt-3">Update terakhir: 31/08/2026, 10.06 WIB</p>
         </div>
 
-        <!-- Tabel Dampak Kerusakan Fisik (Format Persis) -->
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
-          <h4 class="font-bold text-center text-sm text-white mb-3">Kerusakan</h4>
+        <!-- Tabel Dampak Kerusakan -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <h4 class="font-bold text-center text-sm text-slate-900 mb-3">Kerusakan</h4>
           <div class="overflow-x-auto">
             <table class="w-full text-center text-xs">
               <thead>
-                <tr class="text-slate-400 border-b border-slate-800 font-semibold">
+                <tr class="text-slate-500 border-b border-slate-200 font-semibold">
                   <th class="pb-2">Rumah</th>
                   <th class="pb-2">Pelayanan Dasar</th>
                   <th class="pb-2">Sarpras Vital</th>
@@ -334,7 +479,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="text-base font-black text-white">
+                <tr class="text-base font-black text-slate-900">
                   <td class="pt-3">10.001.885</td>
                   <td class="pt-3">63</td>
                   <td class="pt-3">802</td>
@@ -343,54 +488,50 @@
               </tbody>
             </table>
           </div>
-          <p class="text-[10px] text-slate-500 text-left mt-3">Update terakhir: 31/08/2026, 10.06 WIB</p>
+          <p class="text-[10px] text-slate-400 text-left mt-3">Update terakhir: 31/08/2026, 10.06 WIB</p>
         </div>
 
       </div>
 
-      <!-- KOLOM 3 (KANAN): GRAFIK TREN BULANAN & SLIDER KEJADIAN BENCANA TERBARU (LEBAR: 4 KOLOM) -->
+      <!-- KOLOM 3: GRAFIK BULANAN & BENCANA TERBARU -->
       <div class="lg:col-span-4 space-y-5">
         
-        <!-- Grafik Tren Bulanan (Januari - Desember) -->
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
-          <h4 class="font-bold text-xs text-slate-300 mb-2">Tren Kejadian per Bulan</h4>
+        <!-- Grafik Tren Bulanan -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <h4 class="font-bold text-xs text-slate-800 mb-2">Tren Kejadian per Bulan</h4>
           <div class="h-44">
             <canvas id="monthlyLineChart"></canvas>
           </div>
         </div>
 
-        <!-- Box Kejadian Bencana Terbaru dengan Slider / Kartu Visual -->
-        <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+        <!-- Kejadian Bencana Terbaru (2 Kartu) -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div class="text-center mb-4">
-            <h4 class="font-bold text-sm text-white">Kejadian Bencana</h4>
-            <p class="text-xs text-slate-400">Terbaru</p>
+            <h4 class="font-bold text-sm text-slate-900">Kejadian Bencana</h4>
+            <p class="text-xs text-slate-500 font-medium">Terbaru</p>
           </div>
 
-          <!-- 2 Kartu Kejadian Bersebelahan seperti di gambar -->
           <div class="grid grid-cols-2 gap-3">
-            
-            <div class="bg-slate-800/70 p-4 rounded-xl border border-slate-700/60 text-center flex flex-col items-center justify-between">
-              <p class="text-xs font-bold text-amber-400">Kekeringan</p>
-              <div class="my-3 text-4xl text-amber-400 animate-pulse">
+            <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200 text-center flex flex-col items-center justify-between">
+              <p class="text-xs font-bold text-amber-700">Kekeringan</p>
+              <div class="my-3 text-4xl text-amber-500 animate-pulse">
                 <i class="fa-solid fa-sun"></i>
               </div>
-              <p class="text-[11px] text-slate-400 font-medium">29 Agustus 2026</p>
+              <p class="text-[11px] text-slate-600 font-medium">29 Agustus 2026</p>
             </div>
 
-            <div class="bg-slate-800/70 p-4 rounded-xl border border-slate-700/60 text-center flex flex-col items-center justify-between">
-              <p class="text-xs font-bold text-amber-400">Kekeringan</p>
-              <div class="my-3 text-4xl text-amber-400 animate-pulse">
+            <div class="bg-amber-50/70 p-4 rounded-xl border border-amber-200 text-center flex flex-col items-center justify-between">
+              <p class="text-xs font-bold text-amber-700">Kekeringan</p>
+              <div class="my-3 text-4xl text-amber-500 animate-pulse">
                 <i class="fa-solid fa-sun"></i>
               </div>
-              <p class="text-[11px] text-slate-400 font-medium">28 Agustus 2026</p>
+              <p class="text-[11px] text-slate-600 font-medium">28 Agustus 2026</p>
             </div>
-
           </div>
 
-          <!-- Dot Pagination Indicator -->
           <div class="flex justify-center space-x-1.5 mt-5">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-slate-700 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span>
           </div>
         </div>
 
@@ -399,158 +540,154 @@
     </div>
   </section>
 
-  <!-- ================= SECTION NOMOR PENTING ================= -->
+  <!-- ================= 4. SECTION NOMOR PENTING ================= -->
   <section class="max-w-7xl mx-auto px-4 md:px-8 mt-10 w-full">
     <div class="mb-4">
-      <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Layanan Kedaruratan</span>
-      <h2 class="text-xl font-extrabold text-white">Nomor Penting</h2>
+      <span class="text-xs text-emerald-700 font-bold uppercase tracking-wider">Layanan Kedaruratan</span>
+      <h2 class="text-xl font-extrabold text-slate-900">Nomor Penting</h2>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div onclick="bukaModalKontak('instansi')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500 shadow-xl transition cursor-pointer group">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg mb-3 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">
+      <div onclick="bukaModalKontak('instansi')" class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-emerald-500 shadow-sm hover:shadow-md transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg mb-3 group-hover:bg-emerald-600 group-hover:text-white transition">
           <i class="fa-solid fa-building-shield"></i>
         </div>
-        <h3 class="font-bold text-sm text-white mb-1">Instansi Kebencanaan</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-3">Nomor fasilitas kebencanaan yang tersedia mulai kab/kota hingga provinsi.</p>
-        <span class="text-xs font-bold text-emerald-400 group-hover:underline">Selengkapnya →</span>
+        <h3 class="font-bold text-sm text-slate-900 mb-1">Instansi Kebencanaan</h3>
+        <p class="text-xs text-slate-600 leading-relaxed mb-3">Nomor fasilitas kebencanaan yang tersedia mulai kab/kota hingga provinsi.</p>
+        <span class="text-xs font-bold text-emerald-600 group-hover:underline">Selengkapnya →</span>
       </div>
 
-      <div onclick="bukaModalKontak('faskes')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-blue-500 shadow-xl transition cursor-pointer group">
-        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg mb-3 group-hover:bg-blue-500 group-hover:text-white transition">
+      <div onclick="bukaModalKontak('faskes')" class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-blue-500 shadow-sm hover:shadow-md transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg mb-3 group-hover:bg-blue-600 group-hover:text-white transition">
           <i class="fa-solid fa-hospital"></i>
         </div>
-        <h3 class="font-bold text-sm text-white mb-1">Fasilitas Kesehatan</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-3">Nomor fasilitas kesehatan yang tersedia mulai dari RS hingga PMI.</p>
-        <span class="text-xs font-bold text-blue-400 group-hover:underline">Selengkapnya →</span>
+        <h3 class="font-bold text-sm text-slate-900 mb-1">Fasilitas Kesehatan</h3>
+        <p class="text-xs text-slate-600 leading-relaxed mb-3">Nomor fasilitas kesehatan yang tersedia mulai dari RS hingga PMI.</p>
+        <span class="text-xs font-bold text-blue-600 group-hover:underline">Selengkapnya →</span>
       </div>
 
-      <div onclick="bukaModalKontak('sar')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-amber-500 shadow-xl transition cursor-pointer group">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg mb-3 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+      <div onclick="bukaModalKontak('sar')" class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-amber-500 shadow-sm hover:shadow-md transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg mb-3 group-hover:bg-amber-600 group-hover:text-white transition">
           <i class="fa-solid fa-life-ring"></i>
         </div>
-        <h3 class="font-bold text-sm text-white mb-1">Basarnas & Tim SAR</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-3">Layanan pencarian dan pertolongan bencana jalur darat dan perairan.</p>
-        <span class="text-xs font-bold text-amber-400 group-hover:underline">Selengkapnya →</span>
+        <h3 class="font-bold text-sm text-slate-900 mb-1">Basarnas & Tim SAR</h3>
+        <p class="text-xs text-slate-600 leading-relaxed mb-3">Layanan pencarian dan pertolongan bencana jalur darat dan perairan.</p>
+        <span class="text-xs font-bold text-amber-600 group-hover:underline">Selengkapnya →</span>
       </div>
 
-      <div onclick="bukaModalKontak('lainnya')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-purple-500 shadow-xl transition cursor-pointer group">
-        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg mb-3 group-hover:bg-purple-500 group-hover:text-white transition">
+      <div onclick="bukaModalKontak('lainnya')" class="bg-white p-5 rounded-2xl border border-slate-200 hover:border-purple-500 shadow-sm hover:shadow-md transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg mb-3 group-hover:bg-purple-600 group-hover:text-white transition">
           <i class="fa-solid fa-tower-broadcast"></i>
         </div>
-        <h3 class="font-bold text-sm text-white mb-1">Lainnya</h3>
-        <p class="text-xs text-slate-400 leading-relaxed mb-3">Nomor penting lainnya yang dapat dihubungi terkait kedaruratan.</p>
-        <span class="text-xs font-bold text-purple-400 group-hover:underline">Selengkapnya →</span>
+        <h3 class="font-bold text-sm text-slate-900 mb-1">Lainnya</h3>
+        <p class="text-xs text-slate-600 leading-relaxed mb-3">Nomor penting lainnya yang dapat dihubungi terkait kedaruratan.</p>
+        <span class="text-xs font-bold text-purple-600 group-hover:underline">Selengkapnya →</span>
       </div>
     </div>
   </section>
 
-  <!-- ================= SECTION DESA TANGGUH BENCANA (DESTANA) ================= -->
+  <!-- ================= 5. DESA TANGGUH BENCANA (DESTANA) ================= -->
   <section class="max-w-7xl mx-auto px-4 md:px-8 mt-12 w-full">
     <div class="mb-4">
-      <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Kemandirian Wilayah</span>
-      <h2 class="text-xl font-extrabold text-white">Desa Tangguh Bencana</h2>
-      <p class="text-xs text-slate-400">Statistik Desa Tangguh Bencana (DESTANA Aceh)</p>
+      <span class="text-xs text-emerald-700 font-bold uppercase tracking-wider">Kemandirian Wilayah</span>
+      <h2 class="text-xl font-extrabold text-slate-900">Desa Tangguh Bencana</h2>
+      <p class="text-xs text-slate-500">Statistik Desa Tangguh Bencana (DESTANA Aceh)</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-      
-      <!-- Donut Chart Destana -->
-      <div class="lg:col-span-4 bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
-        <h4 class="font-bold text-xs text-slate-300 mb-3 text-center">Grafik Destana</h4>
+      <div class="lg:col-span-4 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <h4 class="font-bold text-xs text-slate-800 mb-3 text-center">Grafik Destana</h4>
         <div class="h-44 flex justify-center">
           <canvas id="destanaChart"></canvas>
         </div>
       </div>
 
-      <!-- 4 Angka Kategori -->
-      <div class="lg:col-span-8 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-        <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/60">
-          <p class="text-xs text-slate-400 font-semibold">Belum Destana</p>
-          <p class="text-2xl font-black text-slate-200 mt-2">572</p>
+      <div class="lg:col-span-8 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <p class="text-xs text-slate-500 font-semibold">Belum Destana</p>
+          <p class="text-2xl font-black text-slate-800 mt-2">572</p>
         </div>
-        <div class="bg-emerald-950/40 p-4 rounded-xl border border-emerald-800/40">
-          <p class="text-xs text-emerald-400 font-semibold">Pratama</p>
-          <p class="text-2xl font-black text-emerald-400 mt-2">488</p>
+        <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+          <p class="text-xs text-emerald-700 font-semibold">Pratama</p>
+          <p class="text-2xl font-black text-emerald-700 mt-2">488</p>
         </div>
-        <div class="bg-blue-950/40 p-4 rounded-xl border border-blue-800/40">
-          <p class="text-xs text-blue-400 font-semibold">Madya</p>
-          <p class="text-2xl font-black text-blue-400 mt-2">56</p>
+        <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+          <p class="text-xs text-blue-700 font-semibold">Madya</p>
+          <p class="text-2xl font-black text-blue-700 mt-2">56</p>
         </div>
-        <div class="bg-purple-950/40 p-4 rounded-xl border border-purple-800/40">
-          <p class="text-xs text-purple-400 font-semibold">Utama</p>
-          <p class="text-2xl font-black text-purple-400 mt-2">3</p>
+        <div class="bg-purple-50 p-4 rounded-xl border border-purple-200">
+          <p class="text-xs text-purple-700 font-semibold">Utama</p>
+          <p class="text-2xl font-black text-purple-700 mt-2">3</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER RESMI DENGAN IDENTITAS BPBD/BPBA -->
-  <footer class="mt-16 border-t border-slate-800 bg-slate-950 py-12 text-slate-400 text-xs">
+  <!-- ================= FOOTER RESMI ================= -->
+  <footer class="mt-16 border-t border-slate-200 bg-white py-12 text-slate-600 text-xs">
     <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
       <div>
-        <div class="flex items-center space-x-3 text-white font-extrabold text-lg mb-3">
+        <div class="flex items-center space-x-3 text-slate-900 font-extrabold text-lg mb-3">
           <div class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white text-base">
             <i class="fa-solid fa-shield-halved"></i>
           </div>
           <span>SIAGA ACEH</span>
         </div>
-        <p class="leading-relaxed text-slate-400">
+        <p class="leading-relaxed text-slate-500">
           Sistem Informasi Geospasial Kebencanaan terpadu Provinsi Aceh untuk penguatan mitigasi, kesiapsiagaan darurat, dan keterbukaan informasi publik.
         </p>
       </div>
 
       <div>
-        <h4 class="text-white font-bold text-sm mb-3">Tautan Sistem</h4>
+        <h4 class="text-slate-900 font-bold text-sm mb-3">Tautan Sistem</h4>
         <ul class="space-y-2 font-medium">
-          <li><a href="map.html" class="hover:text-emerald-400 transition">Peta Interaktif WebGIS 23 Kab/Kota</a></li>
-          <li><a href="dashboard.html" class="hover:text-emerald-400 transition">Dashboard Analitik Grafik Bencana</a></li>
-          <li><a href="katalog.html" class="hover:text-emerald-400 transition">Katalog Dataset Terbuka GeoJSON</a></li>
-          <li><a href="admin.html" class="hover:text-emerald-400 transition">Panel Administrasi & Manajemen Posko</a></li>
+          <li><a href="map.html" class="hover:text-emerald-600 transition">Peta Interaktif WebGIS 23 Kab/Kota</a></li>
+          <li><a href="dashboard.html" class="hover:text-emerald-600 transition">Dashboard Analitik Grafik Bencana</a></li>
+          <li><a href="katalog.html" class="hover:text-emerald-600 transition">Katalog Dataset Terbuka GeoJSON</a></li>
+          <li><a href="admin.html" class="hover:text-emerald-600 transition">Panel Administrasi & Manajemen Posko</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="text-white font-bold text-sm mb-3">Informasi BPBD / BPBA</h4>
+        <h4 class="text-slate-900 font-bold text-sm mb-3">Informasi BPBD / BPBA</h4>
         <p class="leading-relaxed">
-          <b>Alamat:</b> Jl. dr Soedjono / Jl. Teungku Daud Beureueh No. 18, Kota Banda Aceh, Provinsi Aceh, 23121
+          <b>Alamat:</b> Jl. Teungku Daud Beureueh No. 18, Kuta Alam, Kota Banda Aceh, Provinsi Aceh, 23121
         </p>
-        <p class="mt-2 text-emerald-400 font-semibold">Telepon: (0651) 34783 / (0370) 646972</p>
-        <p class="text-slate-300">Email: bpba@acehprov.go.id</p>
-        <p class="text-slate-300">Website: bpba.acehprov.go.id</p>
+        <p class="mt-2 text-emerald-700 font-semibold">Telepon: (0651) 34783 / (0651) 22113</p>
+        <p class="text-slate-500">Email: bpba@acehprov.go.id</p>
+        <p class="text-slate-500">Website: bpba.acehprov.go.id</p>
       </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 md:px-8 border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 border-t border-slate-100 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-slate-400">
       <p>© 2026 Copyrights by BPBA Provinsi Aceh. All Rights Reserved.</p>
       <div class="flex space-x-4">
-        <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+        <a href="#" class="hover:text-slate-600">Kebijakan Privasi</a>
       </div>
     </div>
   </footer>
 
-  <!-- MODAL POPUP KONTAK PENTING -->
-  <div id="modal-kontak" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-        <h3 id="modal-kontak-title" class="font-bold text-white text-base flex items-center gap-2"></h3>
-        <button onclick="tutupModalKontak()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+  <!-- ================= MODAL POPUP KONTAK PENTING ================= -->
+  <div id="modal-kontak" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3 mb-4">
+        <h3 id="modal-kontak-title" class="font-bold text-slate-900 text-base flex items-center gap-2"></h3>
+        <button onclick="tutupModalKontak()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <div id="modal-kontak-body" class="space-y-2.5 text-xs text-slate-300 max-h-80 overflow-y-auto"></div>
-      <button onclick="tutupModalKontak()" class="mt-5 w-full bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl text-xs font-semibold">Tutup</button>
+      <div id="modal-kontak-body" class="space-y-2.5 text-xs text-slate-700 max-h-80 overflow-y-auto"></div>
+      <button onclick="tutupModalKontak()" class="mt-5 w-full bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 rounded-xl text-xs font-bold transition">Tutup</button>
     </div>
   </div>
 
-  <!-- SCRIPT INISIALISASI CHART & INTERAKSI -->
+  <!-- SCRIPT LOGIKA GRAFIK & INTERAKSI (LIGHT THEME) -->
   <script>
-    // 1. Inisialisasi Stacked Bar Chart (Kabupaten/Kota)
     const ctxStacked = document.getElementById('stackedBarKabKota').getContext('2d');
     new Chart(ctxStacked, {
       type: 'bar',
       data: {
         labels: ['Banda Aceh', 'Aceh Besar', 'Pidie', 'Bireuen', 'Aceh Utara', 'Aceh Timur', 'Lhokseumawe', 'Langsa', 'Aceh Tengah', 'Aceh Barat'],
         datasets: [
-          { label: 'Longsor', data: [0, 4, 3, 1, 2, 0, 0, 0, 8, 3], backgroundColor: '#d97706' },
+          { label: 'Longsor', data: [0, 4, 3, 1, 2, 0, 0, 0, 8, 3], backgroundColor: '#f59e0b' },
           { label: 'Kekeringan', data: [2, 5, 4, 3, 6, 4, 1, 2, 3, 5], backgroundColor: '#3b82f6' },
           { label: 'Karhutla', data: [1, 3, 1, 2, 4, 2, 0, 1, 3, 2], backgroundColor: '#ef4444' }
         ]
@@ -559,14 +696,13 @@
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: { stacked: true, ticks: { color: '#94a3b8', font: { size: 8 } }, grid: { display: false } },
-          y: { stacked: true, ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { color: '#334155' } }
+          x: { stacked: true, ticks: { color: '#64748b', font: { size: 8 } }, grid: { display: false } },
+          y: { stacked: true, ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: '#e2e8f0' } }
         },
         plugins: { legend: { display: false } }
       }
     });
 
-    // 2. Inisialisasi Line Chart Tren Bulanan (Januari - Desember)
     const ctxLine = document.getElementById('monthlyLineChart').getContext('2d');
     new Chart(ctxLine, {
       type: 'line',
@@ -575,26 +711,25 @@
         datasets: [{
           label: 'Kejadian',
           data: [65, 58, 85, 42, 30, 22, 18, 45, 60, 72, 90, 110],
-          borderColor: '#8b5cf6',
-          backgroundColor: 'rgba(139, 92, 246, 0.15)',
+          borderColor: '#059669',
+          backgroundColor: 'rgba(5, 150, 105, 0.1)',
           fill: true,
           tension: 0.4,
           pointRadius: 3,
-          pointBackgroundColor: '#8b5cf6'
+          pointBackgroundColor: '#059669'
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 8 } }, grid: { display: false } },
-          y: { ticks: { color: '#94a3b8', font: { size: 9 } }, grid: { color: '#334155' } }
+          x: { ticks: { color: '#64748b', font: { size: 8 } }, grid: { display: false } },
+          y: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { color: '#e2e8f0' } }
         },
         plugins: { legend: { display: false } }
       }
     });
 
-    // 3. Inisialisasi Donut Chart Destana
     const ctxDestana = document.getElementById('destanaChart').getContext('2d');
     new Chart(ctxDestana, {
       type: 'doughnut',
@@ -602,7 +737,7 @@
         labels: ['Belum Destana', 'Pratama', 'Madya', 'Utama'],
         datasets: [{
           data: [572, 488, 56, 3],
-          backgroundColor: ['#475569', '#10b981', '#3b82f6', '#a855f7'],
+          backgroundColor: ['#94a3b8', '#059669', '#2563eb', '#9333ea'],
           borderWidth: 0
         }]
       },
@@ -610,15 +745,14 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 8, font: { size: 9 } } }
+          legend: { position: 'bottom', labels: { color: '#475569', boxWidth: 8, font: { size: 9 } } }
         }
       }
     });
 
-    // 4. Modal Nomor Penting
     const dataKontakPenting = {
       instansi: {
-        title: '<i class="fa-solid fa-building-shield text-emerald-400"></i> Instansi Kebencanaan Aceh',
+        title: '<i class="fa-solid fa-building-shield text-emerald-600"></i> Instansi Kebencanaan Aceh',
         list: [
           { nama: "Pusdalops BPBA Provinsi Aceh", tel: "(0651) 34783" },
           { nama: "BPBD Kota Banda Aceh", tel: "(0651) 22113" },
@@ -629,7 +763,7 @@
         ]
       },
       faskes: {
-        title: '<i class="fa-solid fa-hospital text-blue-400"></i> Fasilitas Kesehatan & Ambulans',
+        title: '<i class="fa-solid fa-hospital text-blue-600"></i> Fasilitas Kesehatan & Ambulans',
         list: [
           { nama: "RSUD dr. Zainoel Abidin (Banda Aceh)", tel: "(0651) 34565" },
           { nama: "RSUD Cut Meutia (Aceh Utara)", tel: "(0645) 46331" },
@@ -638,7 +772,7 @@
         ]
       },
       sar: {
-        title: '<i class="fa-solid fa-life-ring text-amber-400"></i> Basarnas & Tim SAR',
+        title: '<i class="fa-solid fa-life-ring text-amber-600"></i> Basarnas & Tim SAR',
         list: [
           { nama: "Kantor SAR Banda Aceh (Basarnas)", tel: "(0651) 21324" },
           { nama: "Pos SAR Sabang", tel: "(0652) 22115" },
@@ -646,7 +780,7 @@
         ]
       },
       lainnya: {
-        title: '<i class="fa-solid fa-tower-broadcast text-purple-400"></i> Layanan Penting Lainnya',
+        title: '<i class="fa-solid fa-tower-broadcast text-purple-600"></i> Layanan Penting Lainnya',
         list: [
           { nama: "PLN UID Aceh (Gangguan Listrik)", tel: "123" },
           { nama: "Dinas Sosial & Tagana Aceh", tel: "(0651) 22214" },
@@ -663,10 +797,10 @@
 
       data.list.forEach(item => {
         const div = document.createElement('div');
-        div.className = "flex justify-between items-center p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60";
+        div.className = "flex justify-between items-center p-3 bg-slate-50 rounded-xl border border-slate-200";
         div.innerHTML = `
-          <span class="font-medium text-white">${item.nama}</span>
-          <a href="tel:${item.tel.replace(/[^0-9]/g, '')}" class="text-emerald-400 font-bold hover:underline">${item.tel}</a>
+          <span class="font-semibold text-slate-800">${item.nama}</span>
+          <a href="tel:${item.tel.replace(/[^0-9]/g, '')}" class="text-emerald-600 font-bold hover:underline">${item.tel}</a>
         `;
         body.appendChild(div);
       });
