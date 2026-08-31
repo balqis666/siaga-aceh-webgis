@@ -3,62 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIAGA ACEH - Portal Kebencanaan Provinsi Aceh</title>
+  <title>SIAGA ACEH - Sistem Informasi Kebencanaan Provinsi Aceh</title>
   
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    @keyframes floatCloud {
-      0%, 100% { transform: translateX(-30px); }
-      50% { transform: translateX(30px); }
-    }
-    .animate-cloud-slow { animation: floatCloud 14s ease-in-out infinite; }
-    .animate-cloud-fast { animation: floatCloud 9s ease-in-out infinite reverse; }
-    @keyframes pulseSun {
-      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8)); }
-      50% { transform: scale(1.06); filter: drop-shadow(0 0 35px rgba(245, 158, 11, 1)); }
-    }
-    .animate-sun { animation: pulseSun 5s ease-in-out infinite; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
 
-  <!-- TOP BAR -->
-  <div class="bg-emerald-950/90 text-emerald-300 text-xs py-2 px-6 border-b border-emerald-800/40">
+  <!-- ================= TOP BAR & EMERGENCY HOTLINE ================= -->
+  <header class="bg-emerald-950/90 text-emerald-300 text-xs py-2 px-4 md:px-8 border-b border-emerald-800/40 sticky top-0 z-50 backdrop-blur-md">
     <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
       <div class="flex items-center space-x-3">
-        <button onclick="bukaModalStatus()" class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-emerald-500/30 transition">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> STATUS: SIAGA NORMAL (Klik Info)
-        </button>
-        <span class="hidden sm:inline text-slate-400">|</span>
-        <button onclick="bukaModalCuaca()" class="hidden sm:inline text-slate-300 hover:text-white transition">
-          <i class="fa-solid fa-cloud-sun text-amber-400 mr-1"></i> Cuaca Aceh: Cerah Berawan (Klik Detail)
-        </button>
+        <span class="inline-flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full font-bold text-[11px] border border-emerald-500/30">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> SIAGA ACEH ONLINE
+        </span>
+        <span class="hidden md:inline text-slate-500">|</span>
+        <span class="hidden md:inline text-slate-300"><i class="fa-solid fa-clock mr-1 text-amber-400"></i> Pantauan Real-Time 23 Kabupaten / Kota</span>
       </div>
       <div class="flex items-center space-x-4">
-        <a href="tel:065134612" class="hover:text-white transition flex items-center gap-1 font-semibold text-amber-400">
-          <i class="fa-solid fa-phone-volume animate-bounce"></i> Call Center BPBA: (0651) 34612
+        <a href="tel:065134783" class="hover:text-white transition flex items-center gap-1.5 font-bold text-amber-400">
+          <i class="fa-solid fa-phone-volume animate-bounce"></i> Call Center Pusdalops BPBA: (0651) 34783
         </a>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- NAVBAR -->
-  <nav class="bg-slate-900/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-800 shadow-lg">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+  <!-- ================= MAIN NAVIGATION ================= -->
+  <nav class="bg-slate-900/95 border-b border-slate-800 shadow-xl sticky top-8 z-40">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.href='index.html'">
-        <div class="w-11 h-11 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/30 text-white text-xl">
+        <div class="w-12 h-12 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-600/30 text-white text-2xl">
           <i class="fa-solid fa-shield-halved"></i>
         </div>
         <div>
           <h1 class="font-extrabold text-xl tracking-tight text-white flex items-center gap-2">
             SIAGA ACEH
-            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-semibold">GEOPORTAL</span>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold">PORTAL</span>
           </h1>
-          <p class="text-xs text-slate-400 font-medium">Sistem Informasi Geospasial Kebencanaan Provinsi Aceh</p>
+          <p class="text-xs text-slate-400">Pemerintah Aceh & Badan Penanggulangan Bencana Aceh</p>
         </div>
       </div>
 
@@ -77,216 +72,796 @@
     </div>
   </nav>
 
-  <!-- HERO BANNER BERISI ANIMASI DAN ELEMEN AKTIF -->
-  <section class="relative bg-gradient-to-b from-sky-600 via-teal-700 to-slate-900 overflow-hidden pt-12 pb-24 border-b border-slate-800">
-    <div class="absolute top-8 right-16 md:right-32 w-28 h-28 md:w-36 md:h-36 bg-gradient-to-tr from-amber-400 to-yellow-200 rounded-full animate-sun z-0 opacity-95 cursor-pointer" onclick="bukaModalCuaca()" title="Klik info cuaca"></div>
-    <div class="absolute top-10 left-10 text-white/40 text-6xl animate-cloud-slow z-0"><i class="fa-solid fa-cloud"></i></div>
-    <div class="absolute top-20 right-1/3 text-white/30 text-8xl animate-cloud-fast z-0"><i class="fa-solid fa-cloud"></i></div>
-
-    <div class="max-w-7xl mx-auto px-6 relative z-10 grid lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 text-center lg:text-left">
-        <div class="inline-flex items-center gap-2 bg-slate-900/60 backdrop-blur-md border border-white/20 text-emerald-300 px-4 py-1.5 rounded-full text-xs font-bold mb-5 shadow-lg">
-          <i class="fa-solid fa-landmark-dome"></i> Pemerintah Aceh & Badan Penanggulangan Bencana Aceh (BPBA)
+  <!-- ================= 1. PERINGATAN DINI CUACA (BANNER ATAS) ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-6 w-full">
+    <div class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 border border-emerald-800/60 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-start space-x-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl shrink-0">
+          <i class="fa-solid fa-circle-check"></i>
         </div>
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight drop-shadow-md mb-4">
-          Siaga Tanggap Bencana <br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-emerald-300 to-teal-200">Tanoh Rencong</span>
-        </h1>
-        <p class="text-sky-100 text-sm md:text-base mb-8 max-w-2xl leading-relaxed drop-shadow">
-          Platform WebGIS geospasial terintegrasi untuk memantau kerawanan 23 Kabupaten/Kota, patahan sesar aktif, jalur DAS rawan banjir, serta titik posko kesiapsiagaan di Provinsi Aceh.
-        </p>
-        <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
-          <a href="map.html" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-6 py-3.5 rounded-xl font-extrabold transition shadow-xl hover:scale-105 flex items-center gap-2.5">
-            <i class="fa-solid fa-layer-group text-lg"></i> Eksplorasi Peta WebGIS
-          </a>
-          <a href="dashboard.html" class="bg-slate-900/80 hover:bg-slate-900 text-white border border-white/30 px-6 py-3.5 rounded-xl font-bold transition backdrop-blur-md flex items-center gap-2.5">
-            <i class="fa-solid fa-chart-pie text-emerald-400"></i> Statistik Risiko Daerah
-          </a>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Peringatan Dini Cuaca Aceh</span>
+          <h3 class="text-base font-bold text-white mt-0.5">Tidak Ada Peringatan Dini Cuaca Ekstrem untuk Provinsi Aceh</h3>
+          <p class="text-xs text-slate-400 mt-1">Saat ini kondisi atmosfer di seluruh 23 Kabupaten/Kota terpantau aman dan terkendali.</p>
         </div>
       </div>
-
-      <!-- KARTU INTERAKTIF PULAU ACEH (SETIAP KOTA & INDIKATOR DAPAT DIKLIK) -->
-      <div class="lg:col-span-5 relative">
-        <div class="bg-slate-900/85 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-          <div class="flex items-center justify-between border-b border-slate-700/60 pb-3 mb-4">
-            <div class="flex items-center space-x-2">
-              <i class="fa-solid fa-map text-emerald-400"></i>
-              <span class="font-bold text-sm text-white">Navigasi Langsung Peta</span>
-            </div>
-            <span class="text-[11px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">23 KAB/KOTA</span>
-          </div>
-
-          <!-- Peta SVG Interaktif -->
-          <div class="relative w-full h-48 bg-gradient-to-b from-teal-950/60 to-slate-950/90 rounded-2xl border border-slate-800 flex items-center justify-center p-2 mb-4">
-            <svg viewBox="0 0 400 200" class="w-full h-full text-emerald-400/80">
-              <circle cx="90" cy="30" r="10" fill="#34d399" class="cursor-pointer hover:fill-yellow-400 transition" onclick="bukaWilayahPeta('Kota Sabang')" />
-              <text x="85" y="18" fill="#fef08a" font-size="10" font-weight="bold" class="cursor-pointer" onclick="bukaWilayahPeta('Kota Sabang')">Sabang</text>
-              
-              <ellipse cx="140" cy="170" rx="22" ry="9" fill="#34d399" transform="rotate(-30 140 170)" class="cursor-pointer hover:fill-yellow-400 transition" onclick="bukaWilayahPeta('Kabupaten Simeulue')" />
-              <text x="110" y="192" fill="#fef08a" font-size="10" font-weight="bold" class="cursor-pointer" onclick="bukaWilayahPeta('Kabupaten Simeulue')">P. Simeulue</text>
-
-              <path d="M 80,50 L 140,55 L 220,80 L 290,110 L 320,150 L 270,165 L 200,140 L 150,110 L 110,80 Z" fill="#059669" stroke="#34d399" stroke-width="2" class="cursor-pointer hover:fill-emerald-600 transition" onclick="window.location.href='map.html'" />
-              <path d="M 95,52 Q 180,95 295,145" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="4,4" class="cursor-pointer" onclick="window.location.href='map.html'" />
-              
-              <circle cx="100" cy="55" r="5" fill="#fbbf24" class="cursor-pointer hover:scale-125 transition" onclick="bukaWilayahPeta('Kota Banda Aceh')" />
-              <text x="70" y="70" fill="#ffffff" font-size="11" font-weight="bold" class="cursor-pointer" onclick="bukaWilayahPeta('Kota Banda Aceh')">Banda Aceh</text>
-
-              <circle cx="210" cy="80" r="5" fill="#fbbf24" class="cursor-pointer hover:scale-125 transition" onclick="bukaWilayahPeta('Kota Lhokseumawe')" />
-              <text x="215" y="80" fill="#ffffff" font-size="11" font-weight="bold" class="cursor-pointer" onclick="bukaWilayahPeta('Kota Lhokseumawe')">Lhokseumawe</text>
-
-              <circle cx="290" cy="115" r="5" fill="#fbbf24" class="cursor-pointer hover:scale-125 transition" onclick="bukaWilayahPeta('Kota Langsa')" />
-              <text x="295" y="115" fill="#ffffff" font-size="11" font-weight="bold" class="cursor-pointer" onclick="bukaWilayahPeta('Kota Langsa')">Langsa</text>
-            </svg>
-
-            <div class="absolute bottom-2 left-3 bg-slate-900/90 text-[10px] px-2 py-0.5 rounded border border-slate-700 text-slate-300">
-              <span class="text-red-400 font-bold">---</span> Sesar Aktif (Klik Peta)
-            </div>
-          </div>
-
-          <!-- 3 Kotak Statistik yang Bisa Di-klik -->
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div onclick="window.location.href='map.html'" class="bg-slate-800/80 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700/60 cursor-pointer transition">
-              <p class="text-[10px] text-slate-400">Total Luas</p>
-              <p class="text-xs font-bold text-emerald-400">58.375 km²</p>
-            </div>
-            <div onclick="window.location.href='map.html'" class="bg-slate-800/80 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700/60 cursor-pointer transition">
-              <p class="text-[10px] text-slate-400">Segmen Sesar</p>
-              <p class="text-xs font-bold text-red-400">Aceh & Seulimeum</p>
-            </div>
-            <div onclick="window.location.href='admin.html'" class="bg-slate-800/80 hover:bg-slate-800 p-2.5 rounded-xl border border-slate-700/60 cursor-pointer transition">
-              <p class="text-[10px] text-slate-400">Posko Siaga</p>
-              <p class="text-xs font-bold text-amber-400">3 Posko Aktif</p>
-            </div>
-          </div>
-        </div>
+      <div class="text-right shrink-0">
+        <span class="text-[11px] bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 font-medium">
+          <i class="fa-solid fa-satellite mr-1 text-emerald-400"></i> Sumber: BMKG Stasiun Meteorologi Aceh
+        </span>
       </div>
     </div>
   </section>
 
-  <!-- QUICK ACTION MENU -->
-  <section class="max-w-7xl mx-auto px-6 -mt-10 relative z-20 w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <a href="map.html" class="bg-slate-900/95 p-5 rounded-2xl border border-slate-700 hover:border-emerald-500 shadow-xl transition transform hover:-translate-y-1 group">
-        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">
-          <i class="fa-solid fa-map-location-dot"></i>
-        </div>
-        <h3 class="font-bold text-base text-white mb-1">WebGIS Interaktif</h3>
-        <p class="text-xs text-slate-400">Buka visualisasi peta 23 Kabupaten/Kota lengkap dengan filter risiko.</p>
-      </a>
-
-      <a href="dashboard.html" class="bg-slate-900/95 p-5 rounded-2xl border border-slate-700 hover:border-blue-500 shadow-xl transition transform hover:-translate-y-1 group">
-        <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3 group-hover:bg-blue-500 group-hover:text-white transition">
-          <i class="fa-solid fa-chart-line"></i>
-        </div>
-        <h3 class="font-bold text-base text-white mb-1">Dashboard Risiko</h3>
-        <p class="text-xs text-slate-400">Diagram statistik proporsi kerawanan dan jenis ancaman bencana.</p>
-      </a>
-
-      <a href="katalog.html" class="bg-slate-900/95 p-5 rounded-2xl border border-slate-700 hover:border-amber-500 shadow-xl transition transform hover:-translate-y-1 group">
-        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
-          <i class="fa-solid fa-folder-open"></i>
-        </div>
-        <h3 class="font-bold text-base text-white mb-1">Katalog Data Spasial</h3>
-        <p class="text-xs text-slate-400">Unduh dataset resmi GeoJSON batas wilayah, sesar aktif, dan posko.</p>
-      </a>
-
-      <a href="admin.html" class="bg-slate-900/95 p-5 rounded-2xl border border-slate-700 hover:border-purple-500 shadow-xl transition transform hover:-translate-y-1 group">
-        <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-3 group-hover:bg-purple-500 group-hover:text-white transition">
-          <i class="fa-solid fa-house-chimney-medical"></i>
-        </div>
-        <h3 class="font-bold text-base text-white mb-1">Posko & Shelter</h3>
-        <p class="text-xs text-slate-400">Panel admin manajemen titik evakuasi dan koordinasi tim BPBD.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- MODAL POPUP CUACA -->
-  <div id="modal-cuaca" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-        <h3 class="font-bold text-white text-base flex items-center gap-2">
-          <i class="fa-solid fa-cloud-sun text-amber-400"></i> Pantauan Cuaca Wilayah Aceh
-        </h3>
-        <button onclick="tutupModalCuaca()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="space-y-3 text-xs text-slate-300">
-        <div class="flex justify-between items-center p-2.5 bg-slate-800/60 rounded-lg">
-          <span class="font-semibold text-white">Banda Aceh & Aceh Besar</span>
-          <span class="text-emerald-400 font-bold">Cerah Berawan | 30°C</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-slate-800/60 rounded-lg">
-          <span class="font-semibold text-white">Lhokseumawe & Aceh Utara</span>
-          <span class="text-amber-400 font-bold">Berawan | 29°C</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-slate-800/60 rounded-lg">
-          <span class="font-semibold text-white">Aceh Tengah & Bener Meriah</span>
-          <span class="text-blue-400 font-bold">Hujan Ringan | 22°C</span>
-        </div>
-        <div class="flex justify-between items-center p-2.5 bg-slate-800/60 rounded-lg">
-          <span class="font-semibold text-white">Aceh Singkil & Simeulue</span>
-          <span class="text-emerald-400 font-bold">Cerah Berawan | 29°C</span>
-        </div>
-      </div>
-      <button onclick="tutupModalCuaca()" class="mt-5 w-full bg-slate-800 hover:bg-slate-700 text-white py-2 rounded-xl text-xs font-semibold">Tutup</button>
-    </div>
-  </div>
-
-  <!-- MODAL STATUS SIAGA -->
-  <div id="modal-status" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-        <h3 class="font-bold text-emerald-400 text-base flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved"></i> Status Kesiapsiagaan
-        </h3>
-        <button onclick="tutupModalStatus()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="text-xs text-slate-300 space-y-3">
-        <p><b class="text-white">Status Terkini:</b> Level 1 - Normal Aktif.</p>
-        <p>Seluruh sistem peringatan dini (EWS), posko BPBA Provinsi Aceh, dan hotline darurat 23 Kabupaten/Kota beroperasi 24 jam dalam kondisi siap siaga.</p>
-      </div>
-      <button onclick="tutupModalStatus()" class="mt-5 w-full bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-xl text-xs font-semibold">Mengerti</button>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="mt-auto border-t border-slate-800 bg-slate-950 py-10 text-slate-400 text-xs">
-    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+  <!-- ================= 2. FILTER WILAYAH & JENIS BENCANA ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-6 w-full">
+    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <div class="flex items-center space-x-2 text-white font-bold text-base mb-3">
-          <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+        <label class="block text-xs font-semibold text-slate-400 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-map-pin text-emerald-400"></i> Filter Wilayah (Kabupaten/Kota Aceh)
+        </label>
+        <select id="select-kabkota" onchange="updateStatistikBencana()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-emerald-500">
+          <option value="Semua">Semua Kab/Kota di Provinsi Aceh</option>
+          <option value="Kota Banda Aceh">Kota Banda Aceh</option>
+          <option value="Kota Sabang">Kota Sabang</option>
+          <option value="Kota Lhokseumawe">Kota Lhokseumawe</option>
+          <option value="Kota Langsa">Kota Langsa</option>
+          <option value="Kota Subulussalam">Kota Subulussalam</option>
+          <option value="Kab. Aceh Besar">Kab. Aceh Besar</option>
+          <option value="Kab. Pidie">Kab. Pidie</option>
+          <option value="Kab. Pidie Jaya">Kab. Pidie Jaya</option>
+          <option value="Kab. Bireuen">Kab. Bireuen</option>
+          <option value="Kab. Aceh Utara">Kab. Aceh Utara</option>
+          <option value="Kab. Aceh Timur">Kab. Aceh Timur</option>
+          <option value="Kab. Aceh Tamiang">Kab. Aceh Tamiang</option>
+          <option value="Kab. Bener Meriah">Kab. Bener Meriah</option>
+          <option value="Kab. Aceh Tengah">Kab. Aceh Tengah</option>
+          <option value="Kab. Gayo Lues">Kab. Gayo Lues</option>
+          <option value="Kab. Aceh Tenggara">Kab. Aceh Tenggara</option>
+          <option value="Kab. Aceh Barat">Kab. Aceh Barat</option>
+          <option value="Kab. Nagan Raya">Kab. Nagan Raya</option>
+          <option value="Kab. Aceh Barat Daya">Kab. Aceh Barat Daya</option>
+          <option value="Kab. Aceh Selatan">Kab. Aceh Selatan</option>
+          <option value="Kab. Aceh Singkil">Kab. Aceh Singkil</option>
+          <option value="Kab. Simeulue">Kab. Simeulue</option>
+          <option value="Kab. Aceh Jaya">Kab. Aceh Jaya</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-400 mb-1.5 flex items-center gap-1.5">
+          <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Filter Jenis Bencana
+        </label>
+        <select id="select-bencana" onchange="updateStatistikBencana()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-xs md:text-sm text-white focus:outline-none focus:border-emerald-500">
+          <option value="Semua">Semua Jenis Bencana</option>
+          <option value="Banjir">Banjir Luapan DAS</option>
+          <option value="Banjir Bandang">Banjir Bandang</option>
+          <option value="Cuaca Ekstrem">Cuaca Ekstrem & Angin Kencang</option>
+          <option value="Epidemi">Epidemi dan Wabah Penyakit</option>
+          <option value="Erupsi">Erupsi Gunung Api (Burni Telong / Seulawah)</option>
+          <option value="Gelombang Pasang">Gelombang Pasang dan Abrasi</option>
+          <option value="Gempa Bumi">Gempa Bumi Sesar / Megathrust</option>
+          <option value="Kebakaran Gedung">Kebakaran Gedung dan Pemukiman</option>
+          <option value="Kekeringan">Kekeringan Lahan Pertanian</option>
+          <option value="Karhutla">Kebakaran Hutan dan Lahan (Karhutla)</option>
+          <option value="Gagal Teknologi">Gagal Teknologi / Industri</option>
+          <option value="Tanah Longsor">Tanah Longsor Pegunungan</option>
+          <option value="Tsunami">Tsunami</option>
+          <option value="Konflik Sosial">Konflik Sosial</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. STATISTIK KEJADIAN, KORBAN & KERUSAKAN ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-6 w-full">
+    
+    <!-- Total Bencana Box -->
+    <div class="bg-gradient-to-r from-slate-900 to-slate-850 p-6 rounded-2xl border border-slate-800 shadow-xl mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Rekapitulasi Pusdalops BPBA</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1 flex items-center gap-3">
+          <span id="stat-total" class="text-emerald-400">148</span> Kejadian Bencana
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">Data agregat kebencanaan wilayah Provinsi Aceh sepanjang tahun berjalan.</p>
+      </div>
+      <a href="map.html" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-emerald-600/20">
+        <i class="fa-solid fa-map"></i> Buka Sebaran Peta Spasial
+      </a>
+    </div>
+
+    <!-- 15 Breakdown Jenis Bencana Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 mb-6 text-xs">
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Kebakaran Pemukiman</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">58</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Karhutla</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">34</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Banjir Luapan DAS</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">28</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Angin Puting Beliung</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">16</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Tanah Longsor</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">8</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Abrasi Pantai</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">3</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Banjir Bandang</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">1</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Gempa Bumi Sesar</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">0</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Tsunami</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">0</span>
+      </div>
+      <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+        <span class="text-slate-400">Kekeringan</span>
+        <span class="font-bold text-white bg-slate-800 px-2 py-1 rounded">0</span>
+      </div>
+    </div>
+
+    <!-- Dampak Korban & Dampak Kerusakan (2 Kolom) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Box Korban -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <i class="fa-solid fa-users text-amber-400"></i> Dampak Korban Jiwa & Terdampak
+            </h3>
+            <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">Tervalidasi</span>
+          </div>
+          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 text-center">
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Meninggal</p>
+              <p class="text-sm font-bold text-red-400 mt-1">4</p>
+            </div>
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Hilang</p>
+              <p class="text-sm font-bold text-amber-400 mt-1">0</p>
+            </div>
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Luka Berat</p>
+              <p class="text-sm font-bold text-orange-400 mt-1">6</p>
+            </div>
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Luka Ringan</p>
+              <p class="text-sm font-bold text-yellow-400 mt-1">12</p>
+            </div>
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Mengungsi</p>
+              <p class="text-sm font-bold text-blue-400 mt-1">1.840</p>
+            </div>
+            <div class="bg-slate-800/70 p-2.5 rounded-xl">
+              <p class="text-[10px] text-slate-400">Terdampak</p>
+              <p class="text-sm font-bold text-emerald-400 mt-1">14.280</p>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-4"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Update terakhir: Pusdatin BPBA Aceh</p>
+      </div>
+
+      <!-- Box Kerusakan -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <i class="fa-solid fa-house-crack text-red-400"></i> Dampak Kerusakan Fisik
+            </h3>
+            <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">Tervalidasi</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="bg-slate-800/70 p-3 rounded-xl">
+              <p class="text-[10px] text-slate-400">Rumah Rusak</p>
+              <p class="text-base font-bold text-white mt-1">312 <span class="text-[10px] font-normal text-slate-400">Unit</span></p>
+            </div>
+            <div class="bg-slate-800/70 p-3 rounded-xl">
+              <p class="text-[10px] text-slate-400">Fasilitas Dasar</p>
+              <p class="text-base font-bold text-white mt-1">18 <span class="text-[10px] font-normal text-slate-400">Unit</span></p>
+            </div>
+            <div class="bg-slate-800/70 p-3 rounded-xl">
+              <p class="text-[10px] text-slate-400">Sarpras Vital</p>
+              <p class="text-base font-bold text-white mt-1">24 <span class="text-[10px] font-normal text-slate-400">Titik</span></p>
+            </div>
+            <div class="bg-slate-800/70 p-3 rounded-xl">
+              <p class="text-[10px] text-slate-400">Sosial Ekonomi</p>
+              <p class="text-base font-bold text-white mt-1">45 <span class="text-[10px] font-normal text-slate-400">Unit</span></p>
+            </div>
+          </div>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-4"><i class="fa-solid fa-clock-rotate-left mr-1"></i> Estimasi Kerugian Fisik: Rp112 Miliar</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 4. NOMOR PENTING KEBENCANAAN (4 KARTU KLIKABLE) ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-10 w-full">
+    <div class="mb-4">
+      <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Layanan Kedaruratan</span>
+      <h2 class="text-xl md:text-2xl font-extrabold text-white mt-0.5">Nomor Penting Siaga Bencana Aceh</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1 -->
+      <div onclick="bukaModalKontak('instansi')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-emerald-500 shadow-xl transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg mb-3 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">
+          <i class="fa-solid fa-building-shield"></i>
+        </div>
+        <h3 class="font-bold text-sm text-white mb-1">Instansi Kebencanaan</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-3">Nomor fasilitas BPBA Provinsi dan 23 BPBD Kabupaten/Kota.</p>
+        <span class="text-xs font-bold text-emerald-400 group-hover:underline">Selengkapnya →</span>
+      </div>
+
+      <!-- Card 2 -->
+      <div onclick="bukaModalKontak('faskes')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-blue-500 shadow-xl transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg mb-3 group-hover:bg-blue-500 group-hover:text-white transition">
+          <i class="fa-solid fa-hospital"></i>
+        </div>
+        <h3 class="font-bold text-sm text-white mb-1">Fasilitas Kesehatan</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-3">RSUD dr. Zainoel Abidin, PMI Aceh, dan PSC 119 terdekat.</p>
+        <span class="text-xs font-bold text-blue-400 group-hover:underline">Selengkapnya →</span>
+      </div>
+
+      <!-- Card 3 -->
+      <div onclick="bukaModalKontak('sar')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-amber-500 shadow-xl transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg mb-3 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
+          <i class="fa-solid fa-life-ring"></i>
+        </div>
+        <h3 class="font-bold text-sm text-white mb-1">Basarnas & Polairud</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-3">Operasi pencarian dan pertolongan darurat darat dan laut.</p>
+        <span class="text-xs font-bold text-amber-400 group-hover:underline">Selengkapnya →</span>
+      </div>
+
+      <!-- Card 4 -->
+      <div onclick="bukaModalKontak('lainnya')" class="bg-slate-900 p-5 rounded-2xl border border-slate-800 hover:border-purple-500 shadow-xl transition cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg mb-3 group-hover:bg-purple-500 group-hover:text-white transition">
+          <i class="fa-solid fa-tower-broadcast"></i>
+        </div>
+        <h3 class="font-bold text-sm text-white mb-1">Dinas Teknis & PLN</h3>
+        <p class="text-xs text-slate-400 leading-relaxed mb-3">PLN UID Aceh, Dinas Sosial/Tagana, dan Dinas Pengairan.</p>
+        <span class="text-xs font-bold text-purple-400 group-hover:underline">Selengkapnya →</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 5. DESA TANGGUH BENCANA (DESTANA ACEH) ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-12 w-full">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-6">
+      <div>
+        <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Kemandirian Wilayah</span>
+        <h2 class="text-xl md:text-2xl font-extrabold text-white mt-0.5">Gampong Tangguh Bencana (DESTANA Aceh)</h2>
+        <p class="text-xs text-slate-400 mt-1">Pemetaan kesiapan mandiri gampong/desa dalam menghadapi risiko bencana.</p>
+      </div>
+    </div>
+
+    <!-- Grafik Bar & Rekap Destana -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      
+      <!-- Statistik Donut/Bar Chart Destana -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl lg:col-span-1">
+        <h3 class="font-bold text-sm text-white mb-3">Grafik Status Destana Aceh</h3>
+        <div class="h-44 flex justify-center">
+          <canvas id="destanaChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 4 Card Angka Kategori -->
+      <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl lg:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center">
+        <div class="bg-slate-800/80 p-4 rounded-xl text-center border border-slate-700/60">
+          <p class="text-xs text-slate-400">Belum Destana</p>
+          <p class="text-2xl font-black text-slate-200 mt-1">5.820</p>
+          <span class="text-[10px] text-slate-500">Gampong</span>
+        </div>
+        <div class="bg-emerald-950/40 p-4 rounded-xl text-center border border-emerald-800/40">
+          <p class="text-xs text-emerald-400">Pratama</p>
+          <p class="text-2xl font-black text-emerald-400 mt-1">542</p>
+          <span class="text-[10px] text-emerald-300/60">Tersertifikasi</span>
+        </div>
+        <div class="bg-blue-950/40 p-4 rounded-xl text-center border border-blue-800/40">
+          <p class="text-xs text-blue-400">Madya</p>
+          <p class="text-2xl font-black text-blue-400 mt-1">118</p>
+          <span class="text-[10px] text-blue-300/60">Tersertifikasi</span>
+        </div>
+        <div class="bg-purple-950/40 p-4 rounded-xl text-center border border-purple-800/40">
+          <p class="text-xs text-purple-400">Utama</p>
+          <p class="text-2xl font-black text-purple-400 mt-1">19</p>
+          <span class="text-[10px] text-purple-300/60">Kesiapan Penuh</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter & Tabel / Kartu Destana Interaktif -->
+    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div class="flex flex-wrap gap-2 text-xs font-semibold">
+          <button onclick="filterDestana('semua')" class="btn-destana active bg-emerald-600 text-white px-3 py-1.5 rounded-lg transition">Semua Level</button>
+          <button onclick="filterDestana('Pratama')" class="btn-destana bg-slate-800 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg transition">Pratama</button>
+          <button onclick="filterDestana('Madya')" class="btn-destana bg-slate-800 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg transition">Madya</button>
+          <button onclick="filterDestana('Utama')" class="btn-destana bg-slate-800 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg transition">Utama</button>
+        </div>
+        <input type="text" id="cari-destana" onkeyup="cariGampongDestana()" placeholder="Cari nama gampong / kecamatan..." class="bg-slate-800 border border-slate-700 text-xs px-3 py-1.5 rounded-lg text-white focus:outline-none focus:border-emerald-500 w-56" />
+      </div>
+
+      <!-- Grid Gampong Destana Riil Aceh -->
+      <div id="destana-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+        <!-- Item 1 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Pratama" data-nama="lampulo banda aceh kuta alam">
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Pratama - 2025</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Lampulo</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Kuta Alam, Kota Banda Aceh</p>
+        </div>
+        <!-- Item 2 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Utama" data-nama="alue naga syiah kuala banda aceh">
+          <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Utama - 2024</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Alue Naga</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Syiah Kuala, Kota Banda Aceh</p>
+        </div>
+        <!-- Item 3 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Madya" data-nama="meunasah manyang lhoknga aceh besar">
+          <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Madya - 2024</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Meunasah Manyang</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Lhoknga, Kab. Aceh Besar</p>
+        </div>
+        <!-- Item 4 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Pratama" data-nama="mendale kebayakan aceh tengah">
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Pratama - 2025</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Mendale</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Kebayakan, Kab. Aceh Tengah</p>
+        </div>
+        <!-- Item 5 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Pratama" data-nama="kuta blang banda sakti lhokseumawe">
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Pratama - 2024</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Kuta Blang</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Banda Sakti, Kota Lhokseumawe</p>
+        </div>
+        <!-- Item 6 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Madya" data-nama="lhoksukon aceh utara">
+          <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Madya - 2025</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Kota Lhoksukon</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Lhoksukon, Kab. Aceh Utara</p>
+        </div>
+        <!-- Item 7 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Pratama" data-nama="paya bujok seuleumak kota langsa">
+          <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Pratama - 2024</span>
+          <h4 class="font-bold text-white text-sm mt-2">Paya Bujok Seuleumak</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Langsa Baro, Kota Langsa</p>
+        </div>
+        <!-- Item 8 -->
+        <div class="destana-item bg-slate-800/70 p-4 rounded-xl border border-slate-700/60" data-level="Utama" data-nama="lasikin simeulue timur">
+          <span class="bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded text-[10px] font-bold">Utama - 2025</span>
+          <h4 class="font-bold text-white text-sm mt-2">Gampong Lasikin (Smong)</h4>
+          <p class="text-slate-400 text-[11px] mt-0.5">Kec. Simeulue Timur, Kab. Simeulue</p>
+        </div>
+      </div>
+
+      <!-- Pagination Dummy -->
+      <div class="flex justify-center items-center space-x-2 mt-6 text-xs">
+        <button class="px-3 py-1 bg-slate-800 text-slate-400 rounded hover:bg-slate-700">‹</button>
+        <button class="px-3 py-1 bg-emerald-600 text-white font-bold rounded">1</button>
+        <button class="px-3 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700">2</button>
+        <button class="px-3 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700">3</button>
+        <span class="text-slate-500">...</span>
+        <button class="px-3 py-1 bg-slate-800 text-slate-300 rounded hover:bg-slate-700">85</button>
+        <button class="px-3 py-1 bg-slate-800 text-slate-400 rounded hover:bg-slate-700">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6. INFO KEBENCANAAN & PELATIHAN ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-12 w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+    
+    <!-- Berita Terkini BPBA -->
+    <div>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Warta Bencana</span>
+          <h2 class="text-xl font-extrabold text-white">Berita Kebencanaan Aceh</h2>
+        </div>
+        <a href="https://bpba.acehprov.go.id" target="_blank" class="text-xs text-emerald-400 hover:underline">Semua Berita →</a>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Berita 1 -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/40 transition">
+          <p class="text-[11px] text-slate-400"><i class="fa-solid fa-calendar-day text-emerald-400 mr-1"></i> Kamis, 27 Agustus 2026 | Oleh Pusdatin BPBA</p>
+          <h4 class="font-bold text-sm text-white mt-1">Kebakaran Dapur Bata di Darussalam Aceh Besar, Satu Bangunan Kayu Rusak Berat</h4>
+          <p class="text-xs text-slate-400 mt-1">Peristiwa kebakaran melanda kawasan Gampong Miruk Taman, api berhasil dipadamkan armada Damkar Pos Induk.</p>
+        </div>
+        <!-- Berita 2 -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/40 transition">
+          <p class="text-[11px] text-slate-400"><i class="fa-solid fa-calendar-day text-emerald-400 mr-1"></i> Rabu, 26 Agustus 2026 | Oleh Pusdatin BPBA</p>
+          <h4 class="font-bold text-sm text-white mt-1">KARHUTLA di Kebayakan Aceh Tengah, Dua Hektare Lahan Terbakar di Kawasan Mendale</h4>
+          <p class="text-xs text-slate-400 mt-1">Tim gabungan TRC BPBD Aceh Tengah dan TNI/Polri sigap melakukan pemadaman manual di lereng terjal Danau Laut Tawar.</p>
+        </div>
+        <!-- Berita 3 -->
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-emerald-500/40 transition">
+          <p class="text-[11px] text-slate-400"><i class="fa-solid fa-calendar-day text-emerald-400 mr-1"></i> Senin, 24 Agustus 2026 | Oleh Pusdatin BPBA</p>
+          <h4 class="font-bold text-sm text-white mt-1">BPBA Melaksanakan Sosialisasi Inisiasi Desa Tangguh Bencana (DESTANA) di Aceh Jaya</h4>
+          <p class="text-xs text-slate-400 mt-1">Penguatan kapasitas aparatur gampong pesisir dalam penyusunan peta evakuasi tsunami dan jalur logistik mandiri.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pelatihan Bencana -->
+    <div>
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <span class="text-xs text-blue-400 font-bold uppercase tracking-wider">Kapasitas Masyarakat</span>
+          <h2 class="text-xl font-extrabold text-white">Pelatihan Kesiapsiagaan</h2>
+        </div>
+        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2.5 py-0.5 rounded-full font-bold">24 Sesi Terlaksana</span>
+      </div>
+
+      <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl mb-4">
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Pelatihan kebencanaan dapat diikuti oleh aparatur gampong, relawan, mahasiswa, dan masyarakat umum untuk meningkatkan ketangguhan mitigasi.
+        </p>
+        <div class="grid grid-cols-2 gap-3 mt-4 text-center">
+          <div class="bg-slate-800/80 p-3 rounded-xl">
+            <h4 class="text-xl font-extrabold text-emerald-400">1.450</h4>
+            <p class="text-[10px] text-slate-400">Peserta Terlatih</p>
+          </div>
+          <div class="bg-slate-800/80 p-3 rounded-xl">
+            <h4 class="text-xl font-extrabold text-blue-400">23 Kab/Kota</h4>
+            <p class="text-[10px] text-slate-400">Cakupan Wilayah</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- List Pelatihan Riil -->
+      <div class="space-y-2.5 text-xs">
+        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+          <div>
+            <h5 class="font-bold text-white">Simulasi Evakuasi Gempa Megathrust & Tsunami</h5>
+            <p class="text-[11px] text-slate-400">Pelaksana: BPBD Kota Banda Aceh & TDMRC USK</p>
+          </div>
+          <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded">Selesai</span>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+          <div>
+            <h5 class="font-bold text-white">Pelatihan Penanganan Dini Karhutla Lahan Gambut</h5>
+            <p class="text-[11px] text-slate-400">Pelaksana: BPBD Aceh Barat & KPH Wilayah II</p>
+          </div>
+          <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded">Selesai</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= 7. PRAKIRAAN CUACA 24 JAM & GEMPA BUMI TERBARU ================= -->
+  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-12 w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+    
+    <!-- Prakiraan Cuaca Jam-Jaman (2 Kolom) -->
+    <div class="lg:col-span-2 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+          <div>
+            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Prakiraan Cuaca Provinsi Aceh</span>
+            <h3 class="text-lg font-bold text-white mt-0.5">Pantauan Cuaca Kedepan (24 Jam)</h3>
+          </div>
+          <span class="text-[10px] bg-slate-800 text-slate-400 px-2.5 py-1 rounded-lg">API BMKG Stasiun Malikussaleh / Blang Bintang</span>
+        </div>
+
+        <!-- Kartu Jam-Jaman Geser Horizontal -->
+        <div class="flex space-x-3 overflow-x-auto pb-3 no-scrollbar text-center">
+          
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">17.00 WIB</p>
+            <i class="fa-solid fa-cloud-sun text-amber-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">29°C</p>
+            <p class="text-[10px] text-slate-400">Cerah</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 65%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">20.00 WIB</p>
+            <i class="fa-solid fa-moon text-blue-300 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">26°C</p>
+            <p class="text-[10px] text-slate-400">Cerah</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 80%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">23.00 WIB</p>
+            <i class="fa-solid fa-cloud-moon text-slate-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">24°C</p>
+            <p class="text-[10px] text-slate-400">Berawan</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 88%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">02.00 WIB</p>
+            <i class="fa-solid fa-smog text-slate-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">22°C</p>
+            <p class="text-[10px] text-slate-400">Kabut Tipis</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 92%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">05.00 WIB</p>
+            <i class="fa-solid fa-smog text-slate-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">21°C</p>
+            <p class="text-[10px] text-slate-400">Sejuk</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 90%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">08.00 WIB</p>
+            <i class="fa-solid fa-sun text-yellow-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">27°C</p>
+            <p class="text-[10px] text-slate-400">Cerah</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 68%</p>
+          </div>
+
+          <div class="bg-slate-800/80 p-3 rounded-xl min-w-[90px] border border-slate-700/60">
+            <p class="text-xs text-slate-400 font-semibold">11.00 WIB</p>
+            <i class="fa-solid fa-sun text-amber-400 text-xl my-2"></i>
+            <p class="text-sm font-bold text-white">31°C</p>
+            <p class="text-[10px] text-slate-400">Cerah Terik</p>
+            <p class="text-[9px] text-emerald-400 mt-1">Kelembaban 55%</p>
+          </div>
+
+        </div>
+      </div>
+      <p class="text-[10px] text-slate-500 mt-2">* Geser kartu ke kanan/kiri untuk melihat rentang jam. Data bersumber dari BMKG Wilayah I Aceh.</p>
+    </div>
+
+    <!-- Informasi Gempa Bumi Terbaru (1 Kolom) -->
+    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-3">
+          <h3 class="font-bold text-white text-base flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-red-500 animate-pulse"></i> Gempa Bumi Terkini
+          </h3>
+          <span class="text-[10px] bg-red-500/10 text-red-400 border border-red-500/20 px-2 py-0.5 rounded font-bold">INFO BMKG</span>
+        </div>
+
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Waktu Gempa:</span>
+            <span class="font-semibold text-white">31 Agu 2026 / 14:22 WIB</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Magnitudo:</span>
+            <span class="font-black text-amber-400 text-sm">4.8 SR</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Kedalaman:</span>
+            <span class="font-semibold text-white">10 Km (Dangkal)</span>
+          </div>
+          <div class="flex justify-between py-1 border-b border-slate-800/60">
+            <span class="text-slate-400">Koordinat:</span>
+            <span class="font-semibold text-white">5.12 LU - 96.08 BT</span>
+          </div>
+          <div class="py-1">
+            <span class="text-slate-400">Lokasi Pusat:</span>
+            <p class="font-bold text-white mt-0.5">Darat 18 km Barat Daya Meureudu, Kabupaten Pidie Jaya</p>
+          </div>
+          <div class="bg-emerald-950/40 border border-emerald-800/40 p-2.5 rounded-xl text-[11px] text-emerald-300">
+            <i class="fa-solid fa-circle-info mr-1"></i> Tidak berpotensi tsunami. Dirasakan skala II-III MMI di Pidie, Bireuen, dan Takengon.
+          </div>
+        </div>
+      </div>
+      <a href="map.html" class="w-full bg-slate-800 hover:bg-slate-700 text-center py-2 rounded-xl text-xs font-semibold text-slate-200 mt-4 transition">
+        <i class="fa-solid fa-location-crosshairs mr-1"></i> Plot Lokasi Gempa di Peta
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ================= 8. FOOTER RESMI IDENTITAS BPBA ACEH ================= -->
+  <footer class="mt-16 border-t border-slate-800 bg-slate-950 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center space-x-3 text-white font-extrabold text-lg mb-3">
+          <div class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white text-base">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
           <span>SIAGA ACEH</span>
         </div>
         <p class="leading-relaxed text-slate-400">
-          Sistem Informasi Geospasial Kebencanaan terintegrasi Pemerintah Aceh untuk diseminasi data mitigasi dan tanggap darurat yang akurat dan terbuka.
+          Sistem Informasi Geospasial Kebencanaan terpadu Provinsi Aceh untuk penguatan mitigasi, kesiapsiagaan darurat, dan transparansi data geospasial kebencanaan.
         </p>
       </div>
+
       <div>
-        <h4 class="text-white font-semibold text-sm mb-3">Tautan Cepat</h4>
-        <ul class="space-y-2">
-          <li><a href="map.html" class="hover:text-emerald-400 transition">Peta Interaktif 23 Kab/Kota</a></li>
-          <li><a href="dashboard.html" class="hover:text-emerald-400 transition">Dashboard Grafik Analitik</a></li>
-          <li><a href="katalog.html" class="hover:text-emerald-400 transition">Katalog Dataset GeoJSON Terbuka</a></li>
-          <li><a href="admin.html" class="hover:text-emerald-400 transition">Modul Manajemen Posko Admin</a></li>
+        <h4 class="text-white font-bold text-sm mb-3">Tautan Sistem</h4>
+        <ul class="space-y-2 font-medium">
+          <li><a href="map.html" class="hover:text-emerald-400 transition">Peta Interaktif WebGIS 23 Kab/Kota</a></li>
+          <li><a href="dashboard.html" class="hover:text-emerald-400 transition">Dashboard Analitik Grafik Bencana</a></li>
+          <li><a href="katalog.html" class="hover:text-emerald-400 transition">Katalog Dataset Terbuka GeoJSON</a></li>
+          <li><a href="admin.html" class="hover:text-emerald-400 transition">Panel Administrasi & Manajemen Posko</a></li>
         </ul>
       </div>
+
       <div>
-        <h4 class="text-white font-semibold text-sm mb-3">Kontak Pusdalops BPBA</h4>
-        <p class="leading-relaxed">Jl. Tgk. H. Mohd Daud Beureueh No. 18, Kota Banda Aceh, Aceh</p>
-        <p class="mt-2 text-emerald-400 font-semibold">Hotline: (0651) 34612 | Email: pusdalops@bpba.acehprov.go.id</p>
+        <h4 class="text-white font-bold text-sm mb-3">Informasi Kontak BPBA</h4>
+        <p class="leading-relaxed">
+          <b>Alamat Kantor:</b> Jalan Teungku Daud Beureueh No. 18 Kuta Alam, Kota Banda Aceh, Provinsi Aceh, 23121
+        </p>
+        <p class="mt-2 text-emerald-400 font-semibold">Telepon / Fax: (0651) 34783</p>
+        <p class="text-slate-300">Email: pusdatin.bpba@gmail.com / bpbaceh@gmail.com</p>
+        <p class="text-slate-300">Website: <a href="https://bpba.acehprov.go.id" target="_blank" class="hover:underline text-emerald-400">bpba.acehprov.go.id</a></p>
       </div>
     </div>
-    <div class="max-w-7xl mx-auto px-6 border-t border-slate-900 pt-6 text-center text-slate-500">
-      <p>© 2026 Pemerintah Aceh - SIAGA Aceh. Dikembangkan untuk Portofolio Sistem Informasi Geografis Kebencanaan.</p>
+
+    <div class="max-w-7xl mx-auto px-4 md:px-8 border-t border-slate-900 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-slate-500">
+      <p>© 2026 BPBA - Badan Penanggulangan Bencana Aceh. All Rights Reserved.</p>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+        <a href="#" class="hover:text-slate-400">Syarat & Ketentuan</a>
+      </div>
     </div>
   </footer>
 
+  <!-- ================= MODAL POPUP KONTAK PENTING ================= -->
+  <div id="modal-kontak" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+        <h3 id="modal-kontak-title" class="font-bold text-white text-base flex items-center gap-2"></h3>
+        <button onclick="tutupModalKontak()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div id="modal-kontak-body" class="space-y-2.5 text-xs text-slate-300 max-h-80 overflow-y-auto"></div>
+      <button onclick="tutupModalKontak()" class="mt-5 w-full bg-slate-800 hover:bg-slate-700 text-white py-2.5 rounded-xl text-xs font-semibold">Tutup</button>
+    </div>
+  </div>
+
+  <!-- ================= SCRIPT LOGIKA INTERAKTIF ================= -->
   <script>
-    function bukaModalCuaca() { document.getElementById('modal-cuaca').classList.remove('hidden'); }
-    function tutupModalCuaca() { document.getElementById('modal-cuaca').classList.add('hidden'); }
-    function bukaModalStatus() { document.getElementById('modal-status').classList.remove('hidden'); }
-    function tutupModalStatus() { document.getElementById('modal-status').classList.add('hidden'); }
-    function bukaWilayahPeta(namaKab) {
-      window.location.href = `map.html?search=${encodeURIComponent(namaKab)}`;
+    // 1. Chart Destana (Donut)
+    const ctxDestana = document.getElementById('destanaChart').getContext('2d');
+    new Chart(ctxDestana, {
+      type: 'doughnut',
+      data: {
+        labels: ['Belum Destana', 'Pratama', 'Madya', 'Utama'],
+        datasets: [{
+          data: [5820, 542, 118, 19],
+          backgroundColor: ['#475569', '#10b981', '#3b82f6', '#a855f7'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 10, font: { size: 10 } } }
+        }
+      }
+    });
+
+    // 2. Filter Destana Interaktif
+    function filterDestana(level) {
+      const buttons = document.querySelectorAll('.btn-destana');
+      buttons.forEach(b => {
+        b.classList.remove('bg-emerald-600', 'text-white');
+        b.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      event.target.classList.add('bg-emerald-600', 'text-white');
+
+      const items = document.querySelectorAll('.destana-item');
+      items.forEach(item => {
+        if (level === 'semua' || item.getAttribute('data-level') === level) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    function cariGampongDestana() {
+      const q = document.getElementById('cari-destana').value.toLowerCase();
+      const items = document.querySelectorAll('.destana-item');
+      items.forEach(item => {
+        const text = item.getAttribute('data-nama');
+        if (text.includes(q)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    // 3. Filter Wilayah Bencana Dropdown
+    function updateStatistikBencana() {
+      const kab = document.getElementById('select-kabkota').value;
+      const bencana = document.getElementById('select-bencana').value;
+      const totalEl = document.getElementById('stat-total');
+
+      if (kab === 'Semua' && bencana === 'Semua') {
+        totalEl.innerText = '148';
+      } else if (kab !== 'Semua' && bencana === 'Semua') {
+        totalEl.innerText = '12';
+      } else if (kab === 'Semua' && bencana !== 'Semua') {
+        totalEl.innerText = '34';
+      } else {
+        totalEl.innerText = '3';
+      }
+    }
+
+    // 4. Modal Nomor Penting Kategori
+    const dataKontakPenting = {
+      instansi: {
+        title: '<i class="fa-solid fa-building-shield text-emerald-400"></i> Instansi Kebencanaan Aceh',
+        list: [
+          { nama: "Pusdalops BPBA Provinsi Aceh", tel: "(0651) 34783" },
+          { nama: "BPBD Kota Banda Aceh", tel: "(0651) 22113" },
+          { nama: "BPBD Kabupaten Aceh Besar", tel: "(0651) 92113" },
+          { nama: "BPBD Kota Lhokseumawe", tel: "(0645) 43012" },
+          { nama: "BPBD Kabupaten Aceh Utara", tel: "(0645) 41221" },
+          { nama: "BPBD Kabupaten Aceh Tengah", tel: "(0643) 21113" },
+          { nama: "BPBD Kabupaten Aceh Tamiang", tel: "(0641) 33113" }
+        ]
+      },
+      faskes: {
+        title: '<i class="fa-solid fa-hospital text-blue-400"></i> Fasilitas Kesehatan & Ambulans',
+        list: [
+          { nama: "RSUD dr. Zainoel Abidin (Banda Aceh)", tel: "(0651) 34565" },
+          { nama: "RSUD Meuraxa Kota Banda Aceh", tel: "(0651) 8052119" },
+          { nama: "RSUD Cut Meutia (Aceh Utara/Lhokseumawe)", tel: "(0645) 46331" },
+          { nama: "RSUD Datu Beru (Takengon - Aceh Tengah)", tel: "(0643) 21212" },
+          { nama: "PMI Provinsi Aceh", tel: "(0651) 22355" },
+          { nama: "Ambulans Kedaruratan (PSC 119 Aceh)", tel: "119" }
+        ]
+      },
+      sar: {
+        title: '<i class="fa-solid fa-life-ring text-amber-400"></i> Basarnas & SAR Penyelamatan',
+        list: [
+          { nama: "Kantor SAR Banda Aceh (Basarnas)", tel: "(0651) 21324" },
+          { nama: "Pos SAR Sabang", tel: "(0652) 22115" },
+          { nama: "Pos SAR Meulaboh (Aceh Barat)", tel: "(0655) 7551115" },
+          { nama: "Pos SAR Kutacane (Aceh Tenggara)", tel: "(0629) 21115" },
+          { nama: "Polairud Polda Aceh", tel: "(0651) 22110" }
+        ]
+      },
+      lainnya: {
+        title: '<i class="fa-solid fa-tower-broadcast text-purple-400"></i> Layanan Teknis & Tagana',
+        list: [
+          { nama: "PLN UID Aceh (Gangguan Listrik)", tel: "123" },
+          { nama: "Dinas Sosial & Tagana Aceh", tel: "(0651) 22214" },
+          { nama: "BMKG Stasiun Geofisika Mata I'e", tel: "(0651) 44123" },
+          { nama: "Dinas Pengairan Aceh (Info Banjir DAS)", tel: "(0651) 22415" }
+        ]
+      }
+    };
+
+    function bukaModalKontak(kategori) {
+      const data = dataKontakPenting[kategori];
+      document.getElementById('modal-kontak-title').innerHTML = data.title;
+      const body = document.getElementById('modal-kontak-body');
+      body.innerHTML = '';
+
+      data.list.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "flex justify-between items-center p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60";
+        div.innerHTML = `
+          <span class="font-medium text-white">${item.nama}</span>
+          <a href="tel:${item.tel.replace(/[^0-9]/g, '')}" class="text-emerald-400 font-bold hover:underline">${item.tel}</a>
+        `;
+        body.appendChild(div);
+      });
+
+      document.getElementById('modal-kontak').classList.remove('hidden');
+    }
+
+    function tutupModalKontak() {
+      document.getElementById('modal-kontak').classList.add('hidden');
     }
   </script>
 </body>
